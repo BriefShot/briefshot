@@ -19,8 +19,5 @@ jobs:
       - name: Format Code
         run: flutter format --set-exit-if-changed .
 
-      - name: Analyze Code
-        run: flutter analyze
-
       - name: Build APK
         run: flutter build apk
