@@ -6,9 +6,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-      SUPABASE_ANONKEY: ${{ secrets.SUPABASE_ANONKEY }}
 
     steps:
       - uses: actions/checkout@v2
@@ -21,6 +18,14 @@ jobs:
 
       - name: Format Code
         run: flutter format --set-exit-if-changed .
+        
+      - name: Create .env.development file
+        run: |
+          echo -e "SUPABASE_URL=https://wxntsbqiklkfzyimmfnt.supabase.co\nSUPABASE_ANONKEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4bnRzYnFpa2xrZnp5aW1tZm50Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY5MTc0OTEsImV4cCI6MTk5MjQ5MzQ5MX0.C25G2c25yJD95NFWBLUfWS0NycQ6Tdm-j_CAUxXVMbE" > .env.development
+
+      - name: Create .env file
+        run: |
+          echo -e "SUPABASE_URL=https://wxntsbqiklkfzyimmfnt.supabase.co\nSUPABASE_ANONKEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind4bnRzYnFpa2xrZnp5aW1tZm50Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY5MTc0OTEsImV4cCI6MTk5MjQ5MzQ5MX0.C25G2c25yJD95NFWBLUfWS0NycQ6Tdm-j_CAUxXVMbE" > .env
 
       - name: Build APK
         run: flutter build apk
