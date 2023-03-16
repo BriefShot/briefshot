@@ -6,6 +6,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANONKEY: ${{ secrets.SUPABASE_ANONKEY }}
 
     steps:
       - uses: actions/checkout@v2
