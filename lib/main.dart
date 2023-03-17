@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'screens/AuthentificationScreen.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -17,20 +19,7 @@ Future<void> main() async {
     anonKey: dotenv.env["SUPABASE_ANONKEY"]!,
   );
 
-  runApp(const MaterialApp(
-    home: HomeScreen(),
+  runApp(MaterialApp(
+    home: AuthenticationScreen(),
   ));
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
-        child: Text("Flutter"),
-      ),
-    );
-  }
 }
