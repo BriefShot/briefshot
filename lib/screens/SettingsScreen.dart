@@ -1,7 +1,4 @@
-import 'package:briefshot/blocs/navigation/navigation_bloc.dart';
-import 'package:briefshot/widgets/NavBar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -34,131 +31,132 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
         body: ListView(
+            physics: const NeverScrollableScrollPhysics(),
             children: ListTile.divideTiles(
-          color: Colors.white,
-          context: context,
-          tiles: [
-            ListTile(
-              leading: SvgPicture.asset(
-                "assets/icons/mail.svg",
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
+              color: Colors.white,
+              context: context,
+              tiles: [
+                ListTile(
+                  leading: SvgPicture.asset(
+                    "assets/icons/mail.svg",
+                    colorFilter: const ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  title: const Text(
+                    "Email",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  onTap: () {},
                 ),
-              ),
-              title: const Text(
-                "Email",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
+                ListTile(
+                  leading: SvgPicture.asset(
+                    "assets/icons/password.svg",
+                    colorFilter: const ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  title: const Text(
+                    "Mot de passe",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  onTap: () {},
                 ),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: SvgPicture.asset(
-                "assets/icons/password.svg",
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
+                ListTile(
+                  leading: SvgPicture.asset(
+                    "assets/icons/notification.svg",
+                    colorFilter: const ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  title: const Text(
+                    "Notifications",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  onTap: () {},
                 ),
-              ),
-              title: const Text(
-                "Mot de passe",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
+                ListTile(
+                  leading: SvgPicture.asset(
+                    "assets/icons/checkmark-badge.svg",
+                    colorFilter: const ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  title: const Text(
+                    "Abonnement",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  onTap: () {},
                 ),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: SvgPicture.asset(
-                "assets/icons/notification.svg",
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
+                ListTile(
+                  leading: SvgPicture.asset(
+                    "assets/icons/mention.svg",
+                    colorFilter: const ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  title: const Text(
+                    "Nous contacter",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  onTap: () {},
                 ),
-              ),
-              title: const Text(
-                "Notifications",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
+                ListTile(
+                  leading: SvgPicture.asset(
+                    "assets/icons/delete.svg",
+                    colorFilter: const ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  title: const Text(
+                    "Supprimer mon compte",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  onTap: () {},
                 ),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: SvgPicture.asset(
-                "assets/icons/checkmark-badge.svg",
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
+                ListTile(
+                  leading: SvgPicture.asset(
+                    "assets/icons/logout.svg",
+                    colorFilter: const ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  title: const Text(
+                    "Se déconnecter",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  onTap: () {},
                 ),
-              ),
-              title: const Text(
-                "Abonnement",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: SvgPicture.asset(
-                "assets/icons/mention.svg",
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
-                ),
-              ),
-              title: const Text(
-                "Nous contacter",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: SvgPicture.asset(
-                "assets/icons/delete.svg",
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
-                ),
-              ),
-              title: const Text(
-                "Supprimer mon compte",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: SvgPicture.asset(
-                "assets/icons/logout.svg",
-                colorFilter: const ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
-                ),
-              ),
-              title: const Text(
-                "Se déconnecter",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-              onTap: () {},
-            ),
-          ],
-        ).toList()));
+              ],
+            ).toList()));
     ;
   }
 }
