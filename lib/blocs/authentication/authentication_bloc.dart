@@ -39,17 +39,17 @@ class AuthenticationBloc
       } on Exception catch (e) {
         null;
       }
-      on<PressOnSignInButton>((event, emit) async {
-        try {
-          UserRepository().signIn(
-            email: event.email,
-            password: event.password,
-          );
-          emit(const AuthenticationState.signInSuccessfully());
-        } on Exception catch (e) {
-          null;
-        }
-      });
+    });
+    on<PressOnSignInButton>((event, emit) async {
+      try {
+        UserRepository().signIn(
+          email: event.email,
+          password: event.password,
+        );
+        emit(const AuthenticationState.signInSuccessfully());
+      } on Exception catch (e) {
+        null;
+      }
     });
   }
 }
