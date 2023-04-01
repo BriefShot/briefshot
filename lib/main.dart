@@ -20,7 +20,9 @@ Future<void> main() async {
     anonKey: dotenv.env["SUPABASE_ANONKEY"]!,
   );
 
-  runApp(const MaterialApp(
-    home: Wrapper(),
+  runApp(MaterialApp(
+    home: Supabase.instance.client.auth.currentSession != null
+        ? const Wrapper()
+        : AuthenticationScreen(),
   ));
 }
