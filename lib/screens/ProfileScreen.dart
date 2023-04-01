@@ -1,3 +1,4 @@
+import 'package:briefshot/screens/SettingsScreen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -5,8 +6,13 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("ProfileScreen"),
-    );
+    return ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+              context,
+              (MaterialPageRoute(
+                  builder: (context) => const SettingsScreen())));
+        },
+        child: const Text("Parametres"));
   }
 }
