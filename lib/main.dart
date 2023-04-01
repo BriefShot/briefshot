@@ -1,3 +1,4 @@
+import 'package:briefshot/widgets/Wrapper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -19,7 +20,7 @@ Future<void> main() async {
     anonKey: dotenv.env["SUPABASE_ANONKEY"]!,
   );
 
-  runApp(MaterialApp(
-    home: AuthenticationScreen(),
+  runApp(const MaterialApp(
+    home: Wrapper(),
   ));
 }
