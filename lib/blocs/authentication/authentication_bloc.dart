@@ -35,7 +35,6 @@ class AuthenticationBloc
             "username": await UserRepository().generatedUniqueUsername(),
           },
         );
-        emit(const AuthenticationState.signUpSuccessfully());
       } on Exception catch (e) {
         null;
       }

@@ -1,4 +1,5 @@
 import 'package:briefshot/blocs/authentication/authentication_bloc.dart';
+import 'package:briefshot/widgets/Wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -214,8 +215,12 @@ class SignInForm extends StatelessWidget {
                                 password: _passwordController.text,
                               ),
                             );
-
                             _signInKey.currentState?.reset();
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const Wrapper(),
+                              ),
+                            );
                           }
                         },
                         child: const Text(
