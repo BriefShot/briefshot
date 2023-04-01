@@ -2,6 +2,7 @@ import 'package:briefshot/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:form_validator/form_validator.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../blocs/passwordVisibility/password_visibility_bloc.dart';
@@ -11,32 +12,27 @@ class SignInForm extends StatelessWidget {
     super.key,
   });
 
-  final AuthenticationBloc _authenticationBloc = AuthenticationBloc();
   final PasswordVisibilityBloc passwordVisibilityBloc =
       PasswordVisibilityBloc();
 
   static final _signInKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _emailValidator =
+      ValidationBuilder().email("Cet email n'est pas correct").build();
+  final _passwordValidator = ValidationBuilder()
+      .minLength(8, "Le mot de passe doit contenir au moins 8 caractères")
+      .build();
 
-  @override
   void dispose() {
-    _authenticationBloc.close();
     _emailController.dispose();
     _passwordController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => _authenticationBloc,
-        ),
-        BlocProvider(
-          create: (context) => passwordVisibilityBloc,
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => passwordVisibilityBloc,
       child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           return Column(
@@ -55,7 +51,7 @@ class SignInForm extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               const Text(
@@ -66,7 +62,7 @@ class SignInForm extends StatelessWidget {
                   fontSize: 24,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Form(
@@ -88,14 +84,14 @@ class SignInForm extends StatelessWidget {
                         ),
                         ClipRRect(
                           borderRadius: const BorderRadius.all(
-                            Radius.elliptical(20, 5),
+                            Radius.elliptical(20, 15),
                           ),
-                          child: TextField(
+                          child: TextFormField(
+                            validator: _emailValidator,
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(color: Color(0xFF9E9E9E)),
                             controller: _emailController,
                             decoration: InputDecoration(
-                              constraints: const BoxConstraints(maxHeight: 45),
                               border: InputBorder.none,
                               fillColor: const Color(0xFF2A3D45),
                               filled: true,
@@ -122,7 +118,7 @@ class SignInForm extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Column(
@@ -143,17 +139,15 @@ class SignInForm extends StatelessWidget {
                           builder: (context, state) {
                             return ClipRRect(
                               borderRadius: const BorderRadius.all(
-                                Radius.elliptical(20, 5),
+                                Radius.elliptical(20, 15),
                               ),
                               child: TextFormField(
+                                validator: _passwordValidator,
                                 style:
                                     const TextStyle(color: Color(0xFF9E9E9E)),
                                 controller: _passwordController,
                                 obscureText: state.isHidden,
                                 decoration: InputDecoration(
-                                  constraints: const BoxConstraints(
-                                    maxHeight: 45,
-                                  ),
                                   border: InputBorder.none,
                                   fillColor: const Color(0xFF2A3D45),
                                   filled: true,
@@ -198,7 +192,7 @@ class SignInForm extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     ClipRRect(
@@ -213,13 +207,16 @@ class SignInForm extends StatelessWidget {
                           ),
                         ),
                         onPressed: () async {
-                          final response = await Supabase.instance.client.auth
-                              .signInWithPassword(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                          );
+                          if (_signInKey.currentState!.validate()) {
+                            BlocProvider.of<AuthenticationBloc>(context).add(
+                              PressOnSignInButton(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                              ),
+                            );
 
-                          _signInKey.currentState?.reset();
+                            _signInKey.currentState?.reset();
+                          }
                         },
                         child: const Text(
                           "Se connecter",
@@ -229,7 +226,7 @@ class SignInForm extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                   ],

@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
 import '../../repository/UserRepository.dart';
 
 part 'authentication_event.dart';
@@ -18,14 +17,13 @@ class AuthenticationBloc
     on<PressOnEmailSignUpButton>((event, emit) {
       emit(const AuthenticationState.formVisible());
     });
-    on<PressOnSignInButton>((event, emit) {
+    on<PressOnAlreadySignUpButton>((event, emit) {
       emit(const AuthenticationState.signInFormRequested());
     });
     on<PressOnBackToSignUpButton>((event, emit) {
       emit(const AuthenticationState.formVisible());
     });
     on<PressOnBackToSignUpMethodsButton>((event, emit) {
-      print("j'y passe ");
       emit(const AuthenticationState.formHidden());
     });
     on<PressOnSignUpButton>((event, emit) async {
@@ -37,9 +35,21 @@ class AuthenticationBloc
             "username": await UserRepository().generatedUniqueUsername(),
           },
         );
+        emit(const AuthenticationState.signUpSuccessfully());
       } on Exception catch (e) {
         null;
       }
+      on<PressOnSignInButton>((event, emit) async {
+        try {
+          UserRepository().signIn(
+            email: event.email,
+            password: event.password,
+          );
+          emit(const AuthenticationState.signInSuccessfully());
+        } on Exception catch (e) {
+          null;
+        }
+      });
     });
   }
 }

@@ -1,9 +1,9 @@
-import 'package:briefshot/widgets/SignUpWidget.dart';
+import 'package:briefshot/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../blocs/authentication/authentication_bloc.dart';
 import '../widgets/SignInFormWidget.dart';
 import '../widgets/SignUpFormWidget.dart';
+import '../widgets/SignUpWidget.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   AuthenticationScreen({
@@ -24,9 +24,9 @@ class AuthenticationScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/img/briefshot_background_auth.png"),
-                  fit: BoxFit.cover,
-                ),
+                    image:
+                        AssetImage("assets/img/briefshot_background_auth.png"),
+                    fit: BoxFit.cover),
               ),
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -47,7 +47,7 @@ class AuthenticationScreen extends StatelessWidget {
                             ? SignInForm()
                             : state.isSignUpFormVisible
                                 ? SignUpForm()
-                                : SignUpWidget()
+                                : const SignUpWidget(),
                       ],
                     ),
                   ),

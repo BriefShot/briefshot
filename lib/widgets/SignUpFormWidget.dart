@@ -2,6 +2,7 @@ import 'package:briefshot/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:form_validator/form_validator.dart';
 
 import '../blocs/passwordVisibility/password_visibility_bloc.dart';
 
@@ -10,32 +11,27 @@ class SignUpForm extends StatelessWidget {
     super.key,
   });
 
-  final AuthenticationBloc authenticationBloc = AuthenticationBloc();
   final PasswordVisibilityBloc passwordVisibilityBloc =
       PasswordVisibilityBloc();
 
   static final _signUpKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _emailValidator =
+      ValidationBuilder().email("Cet email n'est pas correct").build();
+  final _passwordValidator = ValidationBuilder()
+      .minLength(8, "Le mot de passe doit contenir au moins 8 caractères")
+      .build();
 
-  @override
   void dispose() {
-    authenticationBloc.close();
     _emailController.dispose();
     _passwordController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => authenticationBloc,
-        ),
-        BlocProvider(
-          create: (context) => passwordVisibilityBloc,
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => passwordVisibilityBloc,
       child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           return Column(
@@ -53,7 +49,7 @@ class SignUpForm extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               const Text(
@@ -64,7 +60,7 @@ class SignUpForm extends StatelessWidget {
                   fontSize: 24,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               const Text(
@@ -75,7 +71,7 @@ class SignUpForm extends StatelessWidget {
                   fontSize: 24,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Form(
@@ -97,14 +93,14 @@ class SignUpForm extends StatelessWidget {
                         ),
                         ClipRRect(
                           borderRadius: const BorderRadius.all(
-                            Radius.elliptical(20, 5),
+                            Radius.elliptical(20, 15),
                           ),
-                          child: TextField(
+                          child: TextFormField(
+                            validator: _emailValidator,
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(color: Color(0xFF9E9E9E)),
                             controller: _emailController,
                             decoration: InputDecoration(
-                              constraints: const BoxConstraints(maxHeight: 45),
                               border: InputBorder.none,
                               fillColor: const Color(0xFF2A3D45),
                               filled: true,
@@ -131,7 +127,7 @@ class SignUpForm extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Column(
@@ -152,17 +148,15 @@ class SignUpForm extends StatelessWidget {
                           builder: (context, state) {
                             return ClipRRect(
                               borderRadius: const BorderRadius.all(
-                                Radius.elliptical(20, 5),
+                                Radius.elliptical(20, 15),
                               ),
                               child: TextFormField(
+                                validator: _passwordValidator,
                                 style:
                                     const TextStyle(color: Color(0xFF9E9E9E)),
                                 controller: _passwordController,
                                 obscureText: state.isHidden,
                                 decoration: InputDecoration(
-                                  constraints: const BoxConstraints(
-                                    maxHeight: 45,
-                                  ),
                                   border: InputBorder.none,
                                   fillColor: const Color(0xFF2A3D45),
                                   filled: true,
@@ -207,7 +201,7 @@ class SignUpForm extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     ClipRRect(
@@ -222,13 +216,33 @@ class SignUpForm extends StatelessWidget {
                           ),
                         ),
                         onPressed: () async {
-                          BlocProvider.of<AuthenticationBloc>(context).add(
-                            PressOnSignUpButton(
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                            ),
-                          );
-                          _signUpKey.currentState?.reset();
+                          if (_signUpKey.currentState!.validate()) {
+                            BlocProvider.of<AuthenticationBloc>(context).add(
+                              PressOnSignUpButton(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                              ),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'Inscription réussie ! Vous pouvez vous connecter !',
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.elliptical(20, 15),
+                                  ),
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                duration: Duration(
+                                  seconds: 1,
+                                ),
+                              ),
+                            );
+                            _signUpKey.currentState?.reset();
+                          }
                         },
                         child: const Text(
                           "S'inscrire",
@@ -238,7 +252,7 @@ class SignUpForm extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                   ],

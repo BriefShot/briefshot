@@ -85,7 +85,7 @@ class SignUpWidget extends StatelessWidget {
             TextButton(
               onPressed: () {
                 BlocProvider.of<AuthenticationBloc>(context).add(
-                  PressOnSignInButton(),
+                  PressOnAlreadySignUpButton(),
                 );
               },
               child: const Text(

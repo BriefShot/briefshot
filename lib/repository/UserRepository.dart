@@ -30,6 +30,21 @@ class UserRepository {
         password: password,
         data: data,
       );
+      await Supabase.instance.client.auth.signOut();
+    } on AuthException catch (e) {
+      throw e.message;
+    }
+  }
+
+  Future<void> signIn({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await Supabase.instance.client.auth.signInWithPassword(
+        email: email,
+        password: password,
+      );
     } on AuthException catch (e) {
       throw e.message;
     }

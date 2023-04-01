@@ -19,7 +19,17 @@ class PressOnSignUpButton extends AuthenticationEvent {
 
 class PressOnEmailSignUpButton extends AuthenticationEvent {}
 
-class PressOnSignInButton extends AuthenticationEvent {}
+class PressOnAlreadySignUpButton extends AuthenticationEvent {}
+
+class PressOnSignInButton extends AuthenticationEvent {
+  final String email;
+  final String password;
+
+  const PressOnSignInButton({
+    required this.email,
+    required this.password,
+  });
+}
 
 class PressOnBackToSignUpButton extends AuthenticationEvent {}
 
