@@ -43,6 +43,8 @@ dependencies:
   flutter_svg: ^2.0.4
   faker: ^2.1.0
   form_validator: ^2.1.1
+  google_maps_flutter: ^2.2.5
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:
