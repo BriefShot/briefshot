@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   GoogleMapController? _controller;
-  String mapStyle;
+  String mapStyle = '';
 
   @override
   Widget build(BuildContext context) {
