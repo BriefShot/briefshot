@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'screens/AuthentificationScreen.dart';
+import 'screens/HomeScreen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +21,6 @@ Future<void> main() async {
   );
 
   runApp(MaterialApp(
-    home: Supabase.instance.client.auth.currentSession != null
-        ? const Wrapper()
-        : AuthenticationScreen(),
+    home: HomeScreen(),
   ));
 }

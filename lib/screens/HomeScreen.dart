@@ -1,4 +1,3 @@
-import 'package:briefshot/repository/UserRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,9 +12,15 @@ class HomeScreen extends StatelessWidget {
   }
 
   GoogleMapController? _controller;
+  String mapStyle;
 
   @override
   Widget build(BuildContext context) {
+    DefaultAssetBundle.of(context)
+        .loadString('assets/json/mapStyle.json')
+        .then((string) {
+      mapStyle = string;
+    });
     return Scaffold(
       body: BlocProvider(
         create: (_) => HomeBloc(),
@@ -25,13 +30,17 @@ class HomeScreen extends StatelessWidget {
             return Stack(
               children: [
                 GoogleMap(
-                  mapType: MapType.hybrid,
                   initialCameraPosition: HomeBloc.initialCameraPosition,
+                  zoomControlsEnabled: false,
                   onMapCreated: (GoogleMapController controller) {
                     BlocProvider.of<HomeBloc>(context)
                         .add(SetMapController(controller));
                     BlocProvider.of<HomeBloc>(context)
+                        .add(SetMapStyle(mapStyle));
+                    BlocProvider.of<HomeBloc>(context)
                         .add(GoToDevicePosition());
+
+                    controller.setMapStyle(mapStyle);
                   },
                 ),
                 // Rond au milieu de l'écran pour faire un effet de chargement
@@ -42,13 +51,13 @@ class HomeScreen extends StatelessWidget {
                 Positioned(
                   bottom: 16,
                   right: 16,
-                  child: FloatingActionButton.extended(
+                  child: FloatingActionButton(
                     onPressed: () {
                       BlocProvider.of<HomeBloc>(context)
                           .add(GoToDevicePosition());
                     },
-                    label: const Text('Lake'),
-                    icon: const Icon(Icons.directions_boat),
+                    backgroundColor: Color.fromARGB(255, 232, 137, 84),
+                    child: const Icon(Icons.radio_button_checked),
                   ),
                 ),
               ],

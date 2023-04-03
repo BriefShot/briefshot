@@ -30,6 +30,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<SetMapController>((event, emit) {
       controller = event.controller;
     });
+
+    on<SetMapStyle>((event, emit) {
+      MapService().setMapStyle(controller, event.mapStyle);
+    });
   }
 
   // Position initiale de la Map, écrasée tout de suite dans onMapCreated mais nécessaire

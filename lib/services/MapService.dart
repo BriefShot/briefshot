@@ -45,9 +45,14 @@ class MapService {
       GoogleMapController controller, Position position) async {
     final CameraPosition cameraPosition = CameraPosition(
       target: LatLng(position.latitude, position.longitude),
-      zoom: 16,
+      zoom: 8,
     );
     await controller
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+  }
+
+  // Définir le style de la map
+  setMapStyle(GoogleMapController controller, String mapStyle) async {
+    await controller.setMapStyle(mapStyle);
   }
 }

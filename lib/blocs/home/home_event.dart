@@ -13,4 +13,10 @@ class SetMapController extends HomeEvent {
   const SetMapController(this.controller);
 }
 
+class SetMapStyle extends HomeEvent {
+  final String mapStyle;
+
+  const SetMapStyle(this.mapStyle);
+}
+
 class GoToDevicePosition extends HomeEvent {}
