@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:briefshot/screens/MapScreen.dart';
+import 'package:briefshot/screens/HomeScreen.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -13,13 +13,13 @@ part 'navigation_state.dart';
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   NavigationBloc()
       : super(
-          const NavigationState(
+          NavigationState(
             currentTabIndex: 0,
             screens: [
-              MapScreen(),
-              MessageScreen(),
-              ProfileScreen(),
-              NotificationScreen()
+              HomeScreen(),
+              const MessageScreen(),
+              const ProfileScreen(),
+              const NotificationScreen()
             ],
           ),
         ) {

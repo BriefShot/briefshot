@@ -12,15 +12,20 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc()
-      : super(
-            const HomeState._(isLoading: false, isGoToDevicePosition: false)) {
+      : super(HomeState._(
+            isLoading: false,
+            isGoToDevicePosition: false,
+            initialCameraPosition: const CameraPosition(
+              target: LatLng(48.856614, 2.3522219),
+              zoom: 7,
+            ))) {
     // Controller de GMaps, TODO Valentin : j'étudie plus tard parce que apparemment y'a mieux mais pour l'instant ça marche
     dynamic controller;
 
     // Obtenir la position de l'utilisateur (avec vérifs d'autorisation pour iOS)
     // Modifier la caméra de Maps sur cette position
     on<GoToDevicePosition>((event, emit) async {
-      emit(const HomeState.isGoToDevicePosition());
+      emit(HomeState.isGoToDevicePosition());
       final response = await MapService().getCurrentPosition();
       await MapService().setPositionOnMap(controller, response);
     });
@@ -35,12 +40,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       MapService().setMapStyle(controller, event.mapStyle);
     });
   }
-
-  // Position initiale de la Map, écrasée tout de suite dans onMapCreated mais nécessaire
-  static CameraPosition initialCameraPosition = const CameraPosition(
-    target: LatLng(48.856614, 2.3522219),
-    zoom: 7,
-  );
 
   // static CameraPosition get initialCameraPosition => _kGooglePlex;
 

@@ -1,10 +1,9 @@
+import 'package:briefshot/screens/AuthentificationScreen.dart';
 import 'package:briefshot/widgets/Wrapper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import 'screens/HomeScreen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +19,10 @@ Future<void> main() async {
     anonKey: dotenv.env["SUPABASE_ANONKEY"]!,
   );
 
+  //Supabase.instance.client.auth.signOut();
   runApp(MaterialApp(
-    home: HomeScreen(),
+    home: Supabase.instance.client.auth.currentSession != null
+        ? const Wrapper()
+        : AuthenticationScreen(),
   ));
 }

@@ -11,6 +11,10 @@ class HomeScreen extends StatelessWidget {
     return MaterialPageRoute<void>(builder: (_) => HomeScreen());
   }
 
+  void dispose() {
+    _controller?.dispose();
+  }
+
   GoogleMapController? _controller;
   String mapStyle = '';
 
@@ -21,49 +25,44 @@ class HomeScreen extends StatelessWidget {
         .then((string) {
       mapStyle = string;
     });
-    return Scaffold(
-      body: BlocProvider(
-        create: (_) => HomeBloc(),
-        child: BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            // final isLoading = state.isLoading;
-            return Stack(
-              children: [
-                GoogleMap(
-                  initialCameraPosition: HomeBloc.initialCameraPosition,
-                  zoomControlsEnabled: false,
-                  onMapCreated: (GoogleMapController controller) {
-                    BlocProvider.of<HomeBloc>(context)
-                        .add(SetMapController(controller));
-                    BlocProvider.of<HomeBloc>(context)
-                        .add(SetMapStyle(mapStyle));
+    return BlocProvider(
+      create: (_) => HomeBloc(),
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          // final isLoading = state.isLoading;
+          return Stack(
+            children: [
+              GoogleMap(
+                initialCameraPosition: state.initialCameraPosition ??
+                    const CameraPosition(
+                      target: LatLng(48.856614, 2.3522219),
+                      zoom: 7,
+                    ),
+                zoomControlsEnabled: false,
+                onMapCreated: (GoogleMapController controller) {
+                  BlocProvider.of<HomeBloc>(context)
+                      .add(SetMapController(controller));
+                  BlocProvider.of<HomeBloc>(context).add(SetMapStyle(mapStyle));
+                  // BlocProvider.of<HomeBloc>(context).add(GoToDevicePosition());
+
+                  controller.setMapStyle(mapStyle);
+                },
+              ),
+              Positioned(
+                bottom: 130,
+                right: 40,
+                child: FloatingActionButton(
+                  onPressed: () {
                     BlocProvider.of<HomeBloc>(context)
                         .add(GoToDevicePosition());
-
-                    controller.setMapStyle(mapStyle);
                   },
+                  backgroundColor: Color.fromARGB(255, 232, 137, 84),
+                  child: const Icon(Icons.radio_button_checked),
                 ),
-                // Rond au milieu de l'écran pour faire un effet de chargement
-                // /!\ fait ramer le PC si pas de bonne puce graphique
-                // const Center(
-                //   child: CircularProgressIndicator(),
-                // ),
-                Positioned(
-                  bottom: 16,
-                  right: 16,
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      BlocProvider.of<HomeBloc>(context)
-                          .add(GoToDevicePosition());
-                    },
-                    backgroundColor: Color.fromARGB(255, 232, 137, 84),
-                    child: const Icon(Icons.radio_button_checked),
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
