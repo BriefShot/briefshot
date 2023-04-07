@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "947183085429",
+    "project_id": "briefshot-mds",
+    "storage_bucket": "briefshot-mds.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947183085429:android:950960ddc72747e2fb153c",
+        "android_client_info": {
+          "package_name": "com.example.briefshot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947183085429-bt1983ktsb73ecvu628guk41ts650m4i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtzzQ_nPIvUmT-ZWe6Wfv-OGSZyFXgelY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947183085429-bt1983ktsb73ecvu628guk41ts650m4i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "947183085429-coicj2c50fba01tp1126omf2iipkr6dl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.briefshot"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

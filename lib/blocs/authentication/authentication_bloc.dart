@@ -31,13 +31,11 @@ class AuthenticationBloc
         UserRepository().signUp(
           email: event.email,
           password: event.password,
-          data: {
-            "username": await UserRepository().generatedUniqueUsername(),
-          },
         );
       } on Exception catch (e) {
         null;
       }
+      emit(const AuthenticationState.signUpSuccessfully());
     });
     on<PressOnSignInButton>((event, emit) async {
       try {

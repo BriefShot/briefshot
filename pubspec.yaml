@@ -43,6 +43,8 @@ dependencies:
   flutter_svg: ^2.0.4
   faker: ^2.1.0
   form_validator: ^2.1.1
+  firebase_core: ^2.9.0
+  firebase_auth: ^4.4.0
 
 dev_dependencies:
   flutter_test:
