@@ -1,38 +1,26 @@
 import 'package:faker/faker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class UserRepository {
-  Future<String> generatedUniqueUsername() async {
-    bool isUsernameUnique = false;
-    late String username;
-
-    while (!isUsernameUnique) {
-      username = faker.internet.userName();
-      final response = await Supabase.instance.client
-          .from('users')
-          .select()
-          .eq('username', username)
-          .execute();
-
-      isUsernameUnique = response.data == null || response.data.isEmpty;
-    }
-    return username;
-  }
-
   Future<void> signUp({
     required String email,
     required String password,
-    required Map<String, dynamic> data,
   }) async {
     try {
-      await Supabase.instance.client.auth.signUp(
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
-        data: data,
       );
-      await Supabase.instance.client.auth.signOut();
-    } on AuthException catch (e) {
-      throw e.message;
+      FirebaseAuth.instance.signOut();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
     }
   }
 
@@ -41,12 +29,12 @@ class UserRepository {
     required String password,
   }) async {
     try {
-      await Supabase.instance.client.auth.signInWithPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-    } on AuthException catch (e) {
-      throw e.message;
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
     }
   }
 }
