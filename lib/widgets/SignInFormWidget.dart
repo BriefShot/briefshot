@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_validator/form_validator.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../blocs/passwordVisibility/password_visibility_bloc.dart';
 
