@@ -15,10 +15,4 @@ class PressOnPasswordTile extends SettingsEvent {}
 
 class PressOnNotificationsTile extends SettingsEvent {}
 
-class PressOnContactTile extends SettingsEvent {}
-
 class PressOnSubscriptionTile extends SettingsEvent {}
-
-class PressOnDeleteAccountTile extends SettingsEvent {}
-
-class PressOnSignOutTile extends SettingsEvent {}

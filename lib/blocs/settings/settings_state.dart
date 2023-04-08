@@ -19,13 +19,6 @@ class SettingsState extends Equatable {
   const SettingsState.notifications(
       {required this.appBarTitle, required this.widget});
 
-  const SettingsState.contact(
-      {required this.appBarTitle, required this.widget});
-
-  const SettingsState.deleteAccount(this.appBarTitle, this.widget);
-
-  const SettingsState.signOut(this.appBarTitle, this.widget);
-
   @override
   List<Object?> get props => [appBarTitle, widget];
 }

@@ -20,6 +20,11 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       emit(const SettingsState.notifications(
           appBarTitle: 'Notifications', widget: null));
     });
+    on<PressOnSubscriptionTile>((event, emit) {
+      emit(const SettingsState.subscription(
+          appBarTitle: 'Abonnement', widget: null));
+    });
+
     on<PressOnBackToSettingButton>((event, emit) {
       emit(const SettingsState.initialState(
           appBarTitle: 'Paramètres', widget: null));

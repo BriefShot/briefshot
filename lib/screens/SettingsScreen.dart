@@ -124,7 +124,19 @@ class SettingsScreen extends StatelessWidget {
                             fontSize: 16,
                           ),
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          BlocProvider.of<SettingsBloc>(context).add(
+                            PressOnNotificationsTile(),
+                          );
+                          Navigator.push(
+                              context,
+                              (MaterialPageRoute(
+                                builder: (context) => BlocProvider.value(
+                                  value: settingsBloc,
+                                  child: const SettingTileScreen(),
+                                ),
+                              )));
+                        },
                       ),
                       ListTile(
                         leading: SvgPicture.asset(
@@ -141,7 +153,19 @@ class SettingsScreen extends StatelessWidget {
                             fontSize: 16,
                           ),
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          BlocProvider.of<SettingsBloc>(context).add(
+                            PressOnSubscriptionTile(),
+                          );
+                          Navigator.push(
+                              context,
+                              (MaterialPageRoute(
+                                builder: (context) => BlocProvider.value(
+                                  value: settingsBloc,
+                                  child: const SettingTileScreen(),
+                                ),
+                              )));
+                        },
                       ),
                       ListTile(
                         leading: SvgPicture.asset(
