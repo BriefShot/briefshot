@@ -1,6 +1,6 @@
 import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserRepository {
   Future<void> signUp({
@@ -16,9 +16,9 @@ class UserRepository {
       FirebaseAuth.instance.signOut();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        throw "Le mot de passe est trop faible, il doit faire au moins 8 caractères";
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        throw "Cette adresse email est déjà utilisée";
       }
     }
   }
@@ -33,7 +33,11 @@ class UserRepository {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      if (e.code == 'user-not-found') {
+        throw "Email ou mot de passe incorrect";
+      } else if (e.code == 'wrong-password') {
+        throw "Email ou mot de passe incorrect";
+      }
     }
   }
 }

@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDtzzQ_nPIvUmT-ZWe6Wfv-OGSZyFXgelY',
-    appId: '1:947183085429:android:950960ddc72747e2fb153c',
-    messagingSenderId: '947183085429',
-    projectId: 'briefshot-mds',
-    storageBucket: 'briefshot-mds.appspot.com',
+    apiKey: 'AIzaSyCHzqp8hjnwcj5-4kRvSPGj0K39NKgnRO4',
+    appId: '1:14022799101:android:eed12980ae95d867359894',
+    messagingSenderId: '14022799101',
+    projectId: 'bf-project-mds',
+    storageBucket: 'bf-project-mds.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDETU_7rM6TZX52OTOUemvfyeRmoFy7mCw',
-    appId: '1:947183085429:ios:c94aa8bdcc49dcb1fb153c',
-    messagingSenderId: '947183085429',
-    projectId: 'briefshot-mds',
-    storageBucket: 'briefshot-mds.appspot.com',
-    iosClientId: '947183085429-coicj2c50fba01tp1126omf2iipkr6dl.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCPBPwbMqc5pQzaKsyrqjC_fdRjt87WQTw',
+    appId: '1:14022799101:ios:13e114267bc6205c359894',
+    messagingSenderId: '14022799101',
+    projectId: 'bf-project-mds',
+    storageBucket: 'bf-project-mds.appspot.com',
+    iosClientId: '14022799101-ikbi7nvgumh0u7ss08i8lodr99276m9v.apps.googleusercontent.com',
     iosBundleId: 'com.example.briefshot',
   );
 }

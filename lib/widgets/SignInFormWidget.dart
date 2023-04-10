@@ -1,10 +1,10 @@
-import 'package:briefshot/blocs/authentication/authentication_bloc.dart';
 import 'package:briefshot/widgets/Wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_validator/form_validator.dart';
 
+import '../blocs/authentication/authentication_bloc.dart';
 import '../blocs/passwordVisibility/password_visibility_bloc.dart';
 
 class SignInForm extends StatelessWidget {
@@ -19,10 +19,13 @@ class SignInForm extends StatelessWidget {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _emailValidator =
-      ValidationBuilder().email("Cet email n'est pas correct").build();
-  final _passwordValidator = ValidationBuilder()
-      .minLength(8, "Le mot de passe doit contenir au moins 8 caractères")
-      .build();
+      ValidationBuilder(requiredMessage: "L'email est obligatoire")
+          .email("Cet email n'est pas correct")
+          .build();
+  final _passwordValidator =
+      ValidationBuilder(requiredMessage: "le mot de passe est obligatoire")
+          .minLength(8, "Le mot de passe doit contenir au moins 8 caractères")
+          .build();
 
   void dispose() {
     _emailController.dispose();
@@ -215,11 +218,6 @@ class SignInForm extends StatelessWidget {
                               ),
                             );
                             _signInKey.currentState?.reset();
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const Wrapper(),
-                              ),
-                            );
                           }
                         },
                         child: const Text(
