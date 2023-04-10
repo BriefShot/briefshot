@@ -44,6 +44,7 @@ dependencies:
   form_validator: ^2.1.1
   firebase_core: ^2.9.0
   firebase_auth: ^4.4.0
+  shared_preferences: ^2.1.0
 
 dev_dependencies:
   flutter_test:

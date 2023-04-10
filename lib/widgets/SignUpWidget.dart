@@ -1,7 +1,8 @@
-import 'package:briefshot/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../blocs/authentication/authentication_bloc.dart';
 
 class SignUpWidget extends StatelessWidget {
   const SignUpWidget({

@@ -1,9 +1,9 @@
-import 'package:briefshot/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_validator/form_validator.dart';
 
+import '../blocs/authentication/authentication_bloc.dart';
 import '../blocs/passwordVisibility/password_visibility_bloc.dart';
 
 class SignUpForm extends StatelessWidget {
@@ -18,10 +18,14 @@ class SignUpForm extends StatelessWidget {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _emailValidator =
-      ValidationBuilder().email("Cet email n'est pas correct").build();
-  final _passwordValidator = ValidationBuilder()
-      .minLength(8, "Le mot de passe doit contenir au moins 8 caractères")
-      .build();
+      ValidationBuilder(requiredMessage: "L'email est obligatoire")
+          .email("Cet email n'est pas correct")
+          .build();
+
+  final _passwordValidator =
+      ValidationBuilder(requiredMessage: "Le mot de passe est obligatoire")
+          .minLength(8, "Le mot de passe doit contenir au moins 8 caractères")
+          .build();
 
   void dispose() {
     _emailController.dispose();
@@ -223,25 +227,7 @@ class SignUpForm extends StatelessWidget {
                                 password: _passwordController.text,
                               ),
                             );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  'Inscription réussie ! Vous pouvez vous connecter !',
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.elliptical(20, 15),
-                                  ),
-                                ),
-                                behavior: SnackBarBehavior.floating,
-                                margin: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                duration: Duration(
-                                  seconds: 1,
-                                ),
-                              ),
-                            );
-                            _signUpKey.currentState?.reset();
+                            _signUpKey.currentState!.reset();
                           }
                         },
                         child: const Text(
