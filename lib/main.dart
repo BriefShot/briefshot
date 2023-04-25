@@ -2,27 +2,20 @@ import 'package:briefshot/screens/AuthentificationScreen.dart';
 import 'package:briefshot/widgets/Wrapper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (kReleaseMode) {
-    await dotenv.load(fileName: ".env");
-  } else {
-    await dotenv.load(fileName: ".env.development");
-  }
-
-  await Supabase.initialize(
-    url: dotenv.env["SUPABASE_URL"]!,
-    anonKey: dotenv.env["SUPABASE_ANONKEY"]!,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   //Supabase.instance.client.auth.signOut();
   runApp(MaterialApp(
-    home: Supabase.instance.client.auth.currentSession != null
+    home: FirebaseAuth.instance.currentUser != null
         ? const Wrapper()
-        : AuthenticationScreen(),
+        : AuthentificationScreen(),
   ));
 }

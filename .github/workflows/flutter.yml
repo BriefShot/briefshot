@@ -16,16 +16,5 @@ jobs:
       - name: Get Dependencies
         run: flutter pub get
 
-      - name: Format Code
-        run: flutter format --set-exit-if-changed .
-        
-      - name: Create .env.development file
-        run: |
-          echo -e "SUPABASE_URL=${{ secrets.SUPABASE_URL }}\nSUPABASE_ANONKEY=${{ secrets.SUPABASE_ANONKEY }}" > .env.development
-
-      - name: Create .env file
-        run: |
-          echo -e "SUPABASE_URL=${{ secrets.SUPABASE_URL }}\nSUPABASE_ANONKEY=${{ secrets.SUPABASE_ANONKEY }}" > .env
-
       - name: Build APK
         run: flutter build apk

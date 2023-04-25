@@ -8,10 +8,8 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: () {
-          Navigator.push(
-              context,
-              (MaterialPageRoute(
-                  builder: (context) => const SettingsScreen())));
+          Navigator.push(context,
+              (MaterialPageRoute(builder: (context) => SettingsScreen())));
         },
         child: const Text("Parametres"));
   }

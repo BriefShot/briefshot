@@ -3,30 +3,46 @@ part of 'authentication_bloc.dart';
 class AuthenticationState extends Equatable {
   final bool isSignUpFormVisible;
   final bool isSignInFormVisible;
+  final String? error;
 
-  const AuthenticationState._(
-      {required this.isSignUpFormVisible,
-      required this.isSignInFormVisible,
-      bool? signUpSuccessfully});
-
-  const AuthenticationState.formVisible()
-      : this._(isSignUpFormVisible: true, isSignInFormVisible: false);
-  const AuthenticationState.formHidden()
-      : this._(isSignUpFormVisible: false, isSignInFormVisible: false);
-  const AuthenticationState.signInFormRequested()
-      : this._(isSignUpFormVisible: false, isSignInFormVisible: true);
-  const AuthenticationState.signUpSuccessfully()
-      : this._(
-          isSignUpFormVisible: false,
-          isSignInFormVisible: true,
-        );
-
-  const AuthenticationState.signInSuccessfully()
-      : this._(
-          isSignUpFormVisible: false,
-          isSignInFormVisible: false,
-        );
+  const AuthenticationState({
+    this.error,
+    this.isSignUpFormVisible = false,
+    this.isSignInFormVisible = false,
+  });
 
   @override
-  List<Object> get props => [isSignUpFormVisible, isSignInFormVisible];
+  List<Object?> get props => [error, isSignUpFormVisible, isSignInFormVisible];
+}
+
+class AuthenticationInitialState extends AuthenticationState {}
+
+class AuthenticationSignUpFormRequestedState extends AuthenticationState {
+  const AuthenticationSignUpFormRequestedState()
+      : super(isSignUpFormVisible: true);
+}
+
+class AuthenticationSignInFormRequestedState extends AuthenticationState {
+  const AuthenticationSignInFormRequestedState()
+      : super(isSignInFormVisible: true);
+}
+
+class AuthenticationSignUpSuccessfullyState extends AuthenticationState {
+  const AuthenticationSignUpSuccessfullyState()
+      : super(
+          isSignInFormVisible: true,
+        );
+}
+
+class AuthenticationSignUpFailedState extends AuthenticationState {
+  final String error;
+  const AuthenticationSignUpFailedState(this.error);
+}
+
+class AuthenticationSignInSuccessfullyState extends AuthenticationState {}
+
+class AuthenticationSignInFailedState extends AuthenticationState {
+  final String error;
+
+  const AuthenticationSignInFailedState(this.error);
 }

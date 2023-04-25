@@ -7,48 +7,37 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc()
-      : super(
-          const AuthenticationState._(
-            isSignUpFormVisible: false,
-            isSignInFormVisible: false,
-          ),
-        ) {
-    on<PressOnEmailSignUpButton>((event, emit) {
-      emit(const AuthenticationState.formVisible());
-    });
-    on<PressOnAlreadySignUpButton>((event, emit) {
-      emit(const AuthenticationState.signInFormRequested());
-    });
-    on<PressOnBackToSignUpButton>((event, emit) {
-      emit(const AuthenticationState.formVisible());
-    });
-    on<PressOnBackToSignUpMethodsButton>((event, emit) {
-      emit(const AuthenticationState.formHidden());
-    });
+  AuthenticationBloc() : super(AuthenticationInitialState()) {
     on<PressOnSignUpButton>((event, emit) async {
       try {
-        UserRepository().signUp(
+        await UserRepository().signUp(
           email: event.email,
           password: event.password,
-          data: {
-            "username": await UserRepository().generatedUniqueUsername(),
-          },
         );
-      } on Exception catch (e) {
-        null;
+        emit(const AuthenticationSignUpSuccessfullyState());
+      } catch (e) {
+        emit(AuthenticationSignUpFailedState(e.toString()));
       }
     });
     on<PressOnSignInButton>((event, emit) async {
       try {
-        UserRepository().signIn(
+        await UserRepository().signIn(
           email: event.email,
           password: event.password,
         );
-        emit(const AuthenticationState.signInSuccessfully());
-      } on Exception catch (e) {
-        null;
+        emit(AuthenticationSignInSuccessfullyState());
+      } catch (e) {
+        emit(AuthenticationSignInFailedState(e.toString()));
       }
+    });
+    on<PressOnEmailSignUpButton>((event, emit) {
+      emit(const AuthenticationSignUpFormRequestedState());
+    });
+    on<PressOnAlreadySignUpButton>((event, emit) {
+      emit(const AuthenticationSignInFormRequestedState());
+    });
+    on<PressOnBackToSignUpMethodsButton>((event, emit) {
+      emit(AuthenticationInitialState());
     });
   }
 }

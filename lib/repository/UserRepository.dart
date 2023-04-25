@@ -1,38 +1,25 @@
 import 'package:faker/faker.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserRepository {
-  Future<String> generatedUniqueUsername() async {
-    bool isUsernameUnique = false;
-    late String username;
-
-    while (!isUsernameUnique) {
-      username = faker.internet.userName();
-      final response = await Supabase.instance.client
-          .from('users')
-          .select()
-          .eq('username', username)
-          .execute();
-
-      isUsernameUnique = response.data == null || response.data.isEmpty;
-    }
-    return username;
-  }
-
   Future<void> signUp({
     required String email,
     required String password,
-    required Map<String, dynamic> data,
   }) async {
     try {
-      await Supabase.instance.client.auth.signUp(
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
-        data: data,
       );
-      await Supabase.instance.client.auth.signOut();
-    } on AuthException catch (e) {
-      throw e.message;
+      FirebaseAuth.instance.signOut();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        throw "Le mot de passe est trop faible, il doit faire au moins 8 caractères";
+      } else if (e.code == 'email-already-in-use') {
+        throw "Cette adresse email est déjà utilisée";
+      }
     }
   }
 
@@ -41,12 +28,16 @@ class UserRepository {
     required String password,
   }) async {
     try {
-      await Supabase.instance.client.auth.signInWithPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-    } on AuthException catch (e) {
-      throw e.message;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        throw "Email ou mot de passe incorrect";
+      } else if (e.code == 'wrong-password') {
+        throw "Email ou mot de passe incorrect";
+      }
     }
   }
 }
