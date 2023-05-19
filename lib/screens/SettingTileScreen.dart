@@ -36,9 +36,7 @@ class SettingTileScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: const Center(
-        child: Text('SettingTileScreen'),
-      ),
+      body: Center(child: BlocProvider.of<SettingsBloc>(context).state.widget),
     );
   }
 }

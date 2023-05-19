@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:briefshot/widgets/UpdateEmailForm.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
@@ -10,7 +11,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       : super(const SettingsState.initialState(
             appBarTitle: 'Paramètres', widget: null)) {
     on<PressOnEmailTile>((event, emit) {
-      emit(const SettingsState.email(appBarTitle: 'Email', widget: null));
+      emit(
+          SettingsState.email(appBarTitle: 'Email', widget: UpdateEmailForm()));
     });
     on<PressOnPasswordTile>((event, emit) {
       emit(const SettingsState.password(

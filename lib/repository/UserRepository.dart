@@ -40,4 +40,39 @@ class UserRepository {
       }
     }
   }
+
+  Future<void> relogUser(String? password) async {
+    if (password != null) {
+      try {
+        await FirebaseAuth.instance.currentUser!.reauthenticateWithCredential(
+          EmailAuthProvider.credential(
+            email: FirebaseAuth.instance.currentUser!.email!,
+            password: password,
+          ),
+        );
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          throw "Email ou mot de passe incorrect";
+        } else if (e.code == 'wrong-password') {
+          throw "Email ou mot de passe incorrect";
+        } else {
+          throw "Une erreur est survenue, merci de réessayer ultérieurement";
+        }
+      }
+    }
+  }
+
+  Future<void> updateEmail(String email) async {
+    try {
+      await FirebaseAuth.instance.currentUser!.updateEmail(email);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'invalid-email') {
+        throw "L'adresse email est invalide";
+      } else if (e.code == 'email-already-in-use') {
+        throw "Cette adresse email est déjà utilisée";
+      } else {
+        throw "Une erreur est survenue, merci de réessayer ultérieurement";
+      }
+    }
+  }
 }
