@@ -1,3 +1,4 @@
+import 'package:briefshot/firestore/collections/UsersCollection.dart';
 import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,6 +14,7 @@ class UserRepository {
         email: email,
         password: password,
       );
+      UserCollection().createUserDocument();
       FirebaseAuth.instance.signOut();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
