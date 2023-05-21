@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:app_settings/app_settings.dart';
 
 class LocationRequestPopup extends StatelessWidget {
   const LocationRequestPopup({super.key});
@@ -12,28 +13,28 @@ class LocationRequestPopup extends StatelessWidget {
 
   Widget _dialogBuilder(BuildContext context) {
     return AlertDialog(
-      title: const Text('Basic dialog title'),
-      content: const Text('A dialog is a type of modal window that\n'
-          'appears in front of app content to\n'
-          'provide critical information, or prompt\n'
-          'for a decision to be made.'),
+      title: const Text('Activer la géolocalisation'),
+      content: const Text('Briefshot a besoin de votre géolocalisation\n'
+          'pour vous permettre d\'utiliser toutes\n'
+          'les fonctionnalités de l\'application.'),
       actions: <Widget>[
         TextButton(
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
-          child: const Text('Disable'),
+          child: const Text('Non merci'),
           onPressed: () {
-            //Navigator.of(context).pop();
+            Navigator.of(context).pop();
           },
         ),
         TextButton(
           style: TextButton.styleFrom(
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
-          child: const Text('Enable'),
+          child: const Text('Aller aux réglages'),
           onPressed: () {
-            //Navigator.of(context).pop();
+            AppSettings.openLocationSettings();
+            Navigator.of(context).pop();
           },
         ),
       ],

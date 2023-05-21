@@ -37,6 +37,7 @@ class MapScreen extends StatelessWidget {
                         zoom: 7,
                       ),
                   zoomControlsEnabled: false,
+                  myLocationButtonEnabled: false,
                   onMapCreated: (controller) {
                     _controller = controller;
 
@@ -56,21 +57,11 @@ class MapScreen extends StatelessWidget {
                     child: const Icon(Icons.radio_button_checked),
                   ),
                 ),
-                if (state.isLocationDisabled == true)
-                  SizedBox(
-                    height: 300,
-                    width: 300,
-                    child: Container(
-                      color: Color.fromARGB(255, 187, 0, 0).withOpacity(0.5),
-                    ),
-                  ),
               ],
             );
           },
           listener: (context, state) {
             if (state.isLocationDisabled == true) {
-              print('toto location disabled');
-              print(state.isLocationDisabled);
               showDialog(
                 context: context,
                 builder: (context) => const LocationRequestPopup(),
