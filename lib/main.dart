@@ -12,7 +12,6 @@ Future<void> main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  //Supabase.instance.client.auth.signOut();
   runApp(MaterialApp(
     home: FirebaseAuth.instance.currentUser != null
         ? const Wrapper()

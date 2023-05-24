@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -7,11 +6,13 @@ class MapService {
   dynamic controller;
   String mapStyle = '';
   MapService(BuildContext context) {
-    DefaultAssetBundle.of(context)
-        .loadString('assets/json/mapStyle.json')
-        .then((string) {
-      mapStyle = string;
-    });
+    _loadMapStyle(context);
+  }
+
+  Future<void> _loadMapStyle(BuildContext context) async {
+    final string = await DefaultAssetBundle.of(context)
+        .loadString('assets/json/mapStyle.json');
+    mapStyle = string;
   }
 
   Future<Position> getCurrentPosition() async {
@@ -57,9 +58,5 @@ class MapService {
   initializeMap(GoogleMapController controller) {
     this.controller = controller;
     this.controller.setMapStyle(mapStyle);
-  }
-
-  Future<bool> test() async {
-    return Future.error('error test toto');
   }
 }

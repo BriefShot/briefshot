@@ -19,9 +19,7 @@ class SetMapController extends MapEvent {
 }
 
 class GoToDevicePosition extends MapEvent {
-  // final _requestedAt = DateTime.now();
-
-  GoToDevicePosition();
+  const GoToDevicePosition();
 
   @override
   List<Object> get props => [];
