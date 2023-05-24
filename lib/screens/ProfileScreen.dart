@@ -1,143 +1,145 @@
-import 'package:briefshot/screens/SettingsScreen.dart';
+import 'package:briefshot/blocs/tagPills/tag_pills_bloc.dart';
+import 'package:briefshot/blocs/userInfos/user_infos_bloc.dart';
 import 'package:briefshot/widgets/NewTagPill.dart';
 import 'package:briefshot/widgets/TagPill.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key});
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      snapshot.data!['cover'],
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                height: MediaQuery.of(context).size.height * 0.3,
-                width: MediaQuery.of(context).size.width,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.transparent,
-                        Colors.black,
-                      ],
-                    ),
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundImage: NetworkImage(
-                            snapshot.data!['avatar'],
-                          ),
-                          backgroundColor: Colors.white,
-                        ),
-                        Text(
-                          snapshot.data!['username'],
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+    return BlocProvider(
+      create: (context) => TagPillsBloc(),
+      child: BlocBuilder<UserInfosBloc, UserInfosState>(
+        bloc: BlocProvider.of<UserInfosBloc>(context),
+        builder: (context, state) {
+          if (state is UserInfosLoading) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: const Center(
+                child: CircularProgressIndicator(),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            "assets/icons/edit.svg",
-                            color: const Color(0xFFE88954),
-                            width: 16,
-                            height: 16,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          const Text(
-                            "Editer le profil",
-                            style: TextStyle(
-                              color: Color(0xFFE88954),
-                              fontSize: 18,
-                            ),
-                          ),
+            );
+          } else if (state is UserInfosLoaded) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(state.userInfos.cover),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  height: (MediaQuery.of(context).size.height * 0.3)
+                      .roundToDouble(),
+                  width: MediaQuery.of(context).size.width,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color.fromRGBO(11, 16, 18, 0.5),
+                          Color(0xFF0B1012)
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Wrap(
-                      spacing: 8.0,
-                      children: [
-                        snapshot.hasData
-                            ? const SizedBox()
-                            : const SizedBox(
-                                child: Text(
-                                  "data",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    const Text(
-                      "Favoris",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'DrukWideWeb',
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 50,
+                            backgroundImage:
+                                NetworkImage(state.userInfos.avatar),
+                            backgroundColor: Colors.white,
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            state.userInfos.username,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                  ),
+                ),
+                Container(
+                  decoration: const BoxDecoration(color: Color(0xFF0B1012)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      child: snapshot.hasData
-                          ? snapshot.data!['favoritePlaces'].isEmpty ||
-                                  snapshot.data!['favoritePlaces'] == null
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                "assets/icons/edit.svg",
+                                color: const Color(0xFFE88954),
+                                width: 16,
+                                height: 16,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              const Text(
+                                "Editer le profil",
+                                style: TextStyle(
+                                  color: Color(0xFFE88954),
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Wrap(
+                          spacing: 8.0,
+                          children: [
+                            for (var tag in state.userInfos.interestedInTags)
+                              BlocBuilder<TagPillsBloc, TagPillsState>(
+                                bloc: BlocProvider.of<TagPillsBloc>(context),
+                                builder: (context, state) {
+                                  return TagPill(tag: tag);
+                                },
+                              ),
+                            const NewTagPill()
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        const Text(
+                          "Favoris",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'DrukWideWeb',
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          child: state.userInfos.favoritePlaces.isEmpty
                               ? Center(
                                   child: Text(
                                     "Vous n'avez pas de favoris".toUpperCase(),
@@ -156,15 +158,15 @@ class ProfileScreen extends StatelessWidget {
                                   },
                                   scrollDirection: Axis.horizontal,
                                   itemCount:
-                                      snapshot.data!['favoritePlaces'].length,
+                                      state.userInfos.favoritePlaces.length,
                                   itemBuilder: (context, index) {
                                     return Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
                                         image: DecorationImage(
                                           image: NetworkImage(
-                                            snapshot.data!['favoritePlaces']
-                                                [index],
+                                            state.userInfos
+                                                .favoritePlaces[index],
                                           ),
                                           fit: BoxFit.cover,
                                         ),
@@ -176,30 +178,26 @@ class ProfileScreen extends StatelessWidget {
                                               0.3,
                                     );
                                   },
-                                )
-                          : const Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    const Text(
-                      "Publications",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'DrukWideWeb',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      child: snapshot.hasData
-                          ? snapshot.data!['posts'].length == 0
+                                ),
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        const Text(
+                          "Publications",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'DrukWideWeb',
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          child: state.userInfos.posts.isEmpty
                               ? Center(
                                   child: Text(
                                     "Vous n'avez pas de publications"
@@ -219,14 +217,14 @@ class ProfileScreen extends StatelessWidget {
                                   },
                                   shrinkWrap: true,
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: snapshot.data!["post"].length,
+                                  itemCount: state.userInfos.posts.length,
                                   itemBuilder: (context, index) {
                                     return Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
                                         image: DecorationImage(
                                           image: NetworkImage(
-                                            snapshot.data!['post'][index],
+                                            state.userInfos.posts[index],
                                           ),
                                           fit: BoxFit.cover,
                                         ),
@@ -236,16 +234,20 @@ class ProfileScreen extends StatelessWidget {
                                       height: 100,
                                     );
                                   },
-                                )
-                          : const Text("Error"),
+                                ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            );
+          }
+          return const Center(
+            child: Text("Erreur"),
           );
-        }
-      },
+        },
+      ),
     );
   }
 }

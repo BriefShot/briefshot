@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-// import '../widgets/EmailSettingWidget.dart';
-
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});
 

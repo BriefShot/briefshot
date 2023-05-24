@@ -1,3 +1,5 @@
+import 'package:briefshot/blocs/userInfos/user_infos_bloc.dart';
+import 'package:briefshot/repository/UserInfosRepository.dart';
 import 'package:briefshot/screens/SettingsScreen.dart';
 import 'package:briefshot/widgets/FilterButton.dart';
 import 'package:briefshot/widgets/NavBar.dart';
@@ -11,13 +13,14 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NavigationBloc navigationBloc = NavigationBloc();
     return BlocProvider<NavigationBloc>(
-      create: (context) => navigationBloc,
+      create: (context) => NavigationBloc(
+        UserInfosBloc(UserInfosRepository())..add(LoadUserInfos()),
+      ),
       child: BlocBuilder<NavigationBloc, NavigationState>(
         builder: (context, NavigationState state) {
           return Scaffold(
-            backgroundColor: Colors.black,
+            backgroundColor: const Color(0xFF0B1012),
             appBar: state.currentTabIndex == 2
                 ? AppBar(
                     backgroundColor: Colors.black,
@@ -60,11 +63,13 @@ class Wrapper extends StatelessWidget {
                         padding: EdgeInsets.fromLTRB(15, 15, 0, 0)),
                     child: FilterButton())
                 : null,
-            body: SafeArea(
-              child: SingleChildScrollView(
-                  child: state.screens[state.currentTabIndex]),
+            body: Stack(
+              children: [
+                SingleChildScrollView(
+                    child: state.screens[state.currentTabIndex]),
+                const NavBar(),
+              ],
             ),
-            bottomNavigationBar: const NavBar(),
           );
         },
       ),
