@@ -15,6 +15,7 @@ class Wrapper extends StatelessWidget {
       child: BlocBuilder<NavigationBloc, NavigationState>(
         builder: (context, NavigationState state) {
           return Scaffold(
+            extendBody: true,
             floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
             floatingActionButton: state.currentTabIndex == 0
                 ? const MediaQuery(
@@ -22,11 +23,7 @@ class Wrapper extends StatelessWidget {
                         padding: EdgeInsets.fromLTRB(15, 15, 0, 0)),
                     child: FilterButton())
                 : null,
-            body: SafeArea(
-              child: SingleChildScrollView(
-                child: state.screens[state.currentTabIndex],
-              ),
-            ),
+            body: state.screens[state.currentTabIndex],
             bottomNavigationBar: const NavBar(),
           );
         },

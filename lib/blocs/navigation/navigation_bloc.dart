@@ -13,13 +13,13 @@ part 'navigation_state.dart';
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   NavigationBloc()
       : super(
-          const NavigationState(
+          NavigationState(
             currentTabIndex: 0,
             screens: [
               MapScreen(),
-              MessageScreen(),
-              ProfileScreen(),
-              NotificationScreen()
+              const MessageScreen(),
+              const ProfileScreen(),
+              const NotificationScreen()
             ],
           ),
         ) {
