@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:briefshot/blocs/profile/profile_bloc.dart';
 import 'package:briefshot/blocs/userInfos/user_infos_bloc.dart';
 import 'package:briefshot/repository/UserInfosRepository.dart';
 import 'package:briefshot/screens/MapScreen.dart';
@@ -16,16 +17,23 @@ part 'navigation_state.dart';
 
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   final UserInfosBloc userInfosBloc;
+  final ProfileBloc profileBloc;
 
-  NavigationBloc(this.userInfosBloc)
+  NavigationBloc(this.userInfosBloc, this.profileBloc)
       : super(
           NavigationState(
             currentTabIndex: 0,
             screens: [
               const MapScreen(),
               const MessageScreen(),
-              BlocProvider.value(
-                  value: userInfosBloc, child: const ProfileScreen()),
+              MultiBlocProvider(providers: [
+                BlocProvider.value(
+                  value: userInfosBloc,
+                ),
+                BlocProvider.value(
+                  value: profileBloc,
+                )
+              ], child: ProfileScreen()),
               const NotificationScreen()
             ],
           ),

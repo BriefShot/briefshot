@@ -206,22 +206,6 @@ class UpdateEmailForm extends StatelessWidget {
                           BlocProvider.of<PasswordDialogBloc>(context)
                               .add(const PasswordDialogAsked());
                         }
-                        //
-
-                        // if (password != null) {
-                        //   FirebaseAuth.instance.currentUser!
-                        //       .reauthenticateWithCredential(
-                        //           EmailAuthProvider.credential(
-                        //               email: state.email!, password: password));
-
-                        //   await FirebaseAuth.instance.currentUser!
-                        //       .updateEmail(_newEmailController.text)
-                        //       .then((value) =>
-                        //           _updateEmailFormKey.currentState!.reset());
-                        //   BlocProvider.of<SettingsBloc>(context)
-                        //       .add(PressOnBackToSettingButton());
-                        //   Navigator.of(context).pop();
-                        // }
                       },
                       child: const Text(
                         "Mettre à jour",

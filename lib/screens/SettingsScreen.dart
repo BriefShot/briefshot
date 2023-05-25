@@ -14,9 +14,9 @@ class SettingsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => settingsBloc,
       child: Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: const Color(0xFF0B1012),
           appBar: AppBar(
-            backgroundColor: Colors.black,
+            backgroundColor: const Color(0xFF0B1012),
             toolbarHeight: 84,
             centerTitle: false,
             titleSpacing: 0,
@@ -46,7 +46,7 @@ class SettingsScreen extends StatelessWidget {
               return ListView(
                   physics: const NeverScrollableScrollPhysics(),
                   children: ListTile.divideTiles(
-                    color: Colors.white,
+                    color: const Color(0xFF2A3D45),
                     context: context,
                     tiles: [
                       ListTile(

@@ -24,4 +24,15 @@ class UserInfosRepository {
       'interestedInTags': FieldValue.arrayRemove([tag])
     });
   }
+
+  Future<void> updateUsername(String username) async {
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({'username': username});
+    } catch (e) {
+      throw e;
+    }
+  }
 }

@@ -43,8 +43,15 @@ class NavBar extends StatelessWidget {
                           "assets/icons/home.svg",
                         ),
                         label: '',
-                        activeIcon: SvgPicture.asset(
-                          "assets/icons/home--active.svg",
+                        activeIcon: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            color: const Color(0xFF1F2E34),
+                            child: SvgPicture.asset(
+                              "assets/icons/home--active.svg",
+                            ),
+                          ),
                         ),
                       ),
                       BottomNavigationBarItem(
@@ -52,24 +59,45 @@ class NavBar extends StatelessWidget {
                             "assets/icons/messenger.svg",
                           ),
                           label: '',
-                          activeIcon: SvgPicture.asset(
-                            "assets/icons/messenger--active.svg",
+                          activeIcon: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              color: const Color(0xFF1F2E34),
+                              child: SvgPicture.asset(
+                                "assets/icons/messenger--active.svg",
+                              ),
+                            ),
                           )),
                       BottomNavigationBarItem(
                           icon: SvgPicture.asset(
                             "assets/icons/profil.svg",
                           ),
                           label: '',
-                          activeIcon: SvgPicture.asset(
-                            "assets/icons/profil--active.svg",
+                          activeIcon: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              color: const Color(0xFF1F2E34),
+                              child: SvgPicture.asset(
+                                "assets/icons/profil--active.svg",
+                              ),
+                            ),
                           )),
                       BottomNavigationBarItem(
                         icon: SvgPicture.asset(
                           "assets/icons/notification.svg",
                         ),
                         label: '',
-                        activeIcon: SvgPicture.asset(
-                          "assets/icons/notification--active.svg",
+                        activeIcon: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            padding: const EdgeInsets.all(8),
+                            color: const Color(0xFF1F2E34),
+                            child: SvgPicture.asset(
+                              "assets/icons/notification--active.svg",
+                            ),
+                          ),
                         ),
                       )
                     ],

@@ -12,6 +12,9 @@ class TagPillsBloc extends Bloc<TagPillsEvent, TagPillsState> {
     });
     on<TagPillsDeleteAsked>((event, emit) {
       UserInfosRepository().removeTag(event.tag);
+      emit(TagPillsDeleteMode());
+    });
+    on<TagPillsCancelDeleteMode>((event, emit) {
       emit(TagPillsInitial());
     });
   }

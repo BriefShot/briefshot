@@ -1,3 +1,4 @@
+import 'package:briefshot/blocs/profile/profile_bloc.dart';
 import 'package:briefshot/blocs/userInfos/user_infos_bloc.dart';
 import 'package:briefshot/repository/UserInfosRepository.dart';
 import 'package:briefshot/screens/SettingsScreen.dart';
@@ -9,13 +10,14 @@ import 'package:flutter_svg/svg.dart';
 import '../blocs/navigation/navigation_bloc.dart';
 
 class Wrapper extends StatelessWidget {
-  const Wrapper({Key? key}) : super(key: key);
+  Wrapper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<NavigationBloc>(
       create: (context) => NavigationBloc(
         UserInfosBloc(UserInfosRepository())..add(LoadUserInfos()),
+        BlocProvider.of<ProfileBloc>(context),
       ),
       child: BlocBuilder<NavigationBloc, NavigationState>(
         builder: (context, NavigationState state) {
@@ -23,7 +25,7 @@ class Wrapper extends StatelessWidget {
             backgroundColor: const Color(0xFF0B1012),
             appBar: state.currentTabIndex == 2
                 ? AppBar(
-                    backgroundColor: Colors.black,
+                    backgroundColor: const Color(0xFF0B1012),
                     title: const Padding(
                       padding: EdgeInsets.only(left: 30),
                       child: Text(
@@ -39,6 +41,48 @@ class Wrapper extends StatelessWidget {
                     centerTitle: false,
                     titleSpacing: 0,
                     actions: [
+                      BlocProvider.value(
+                        value: BlocProvider.of<ProfileBloc>(context),
+                        child: BlocBuilder<ProfileBloc, ProfileState>(
+                          builder: (context, state) {
+                            if (state.isEditionMode) {
+                              return Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      BlocProvider.of<ProfileBloc>(context)
+                                          .add(ProfileEditionCancelled());
+                                    },
+                                    child: Text(
+                                      "Annuler".toUpperCase(),
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    icon: SvgPicture.asset(
+                                      "assets/icons/edit-filled.svg",
+                                    ),
+                                    onPressed: () {},
+                                  ),
+                                ],
+                              );
+                            }
+
+                            return IconButton(
+                              icon: SvgPicture.asset(
+                                "assets/icons/edit.svg",
+                              ),
+                              onPressed: () {
+                                BlocProvider.of<ProfileBloc>(context)
+                                    .add(ProfileEditionAsked());
+                              },
+                            );
+                          },
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(right: 30),
                         child: IconButton(
@@ -47,9 +91,11 @@ class Wrapper extends StatelessWidget {
                           ),
                           onPressed: () {
                             Navigator.push(
-                                context,
-                                (MaterialPageRoute(
-                                    builder: (context) => SettingsScreen())));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SettingsScreen(),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -61,13 +107,35 @@ class Wrapper extends StatelessWidget {
                 ? const MediaQuery(
                     data: MediaQueryData(
                         padding: EdgeInsets.fromLTRB(15, 15, 0, 0)),
-                    child: FilterButton())
+                    child: FilterButton(),
+                  )
                 : null,
             body: Stack(
               children: [
                 SingleChildScrollView(
-                    child: state.screens[state.currentTabIndex]),
-                const NavBar(),
+                  child: BlocProvider(
+                    create: (context) => ProfileBloc(),
+                    child: state.screens[state.currentTabIndex],
+                  ),
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    height: 150,
+                    decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                      colors: [
+                        Color.fromRGBO(11, 16, 18, 0),
+                        Color(0xFF0B1012),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    )),
+                  ),
+                ),
+                const NavBar()
               ],
             ),
           );

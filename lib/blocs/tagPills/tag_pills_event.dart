@@ -17,3 +17,5 @@ class TagPillsDeleteAsked extends TagPillsEvent {
   @override
   List<Object> get props => [tag];
 }
+
+class TagPillsCancelDeleteMode extends TagPillsEvent {}

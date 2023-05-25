@@ -15,7 +15,6 @@ class UserInfosBloc extends Bloc<UserInfosEvent, UserInfosState> {
 
   UserInfosBloc(this._userInfosRepository) : super(UserInfosLoading()) {
     on<LoadUserInfos>((event, emit) {
-      // print(_userInfosSubscription!.isPaused);
       _userInfosSubscription?.cancel();
       _userInfosSubscription = _userInfosRepository
           .getUserInfos(FirebaseAuth.instance.currentUser!.uid)
