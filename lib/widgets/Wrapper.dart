@@ -126,7 +126,17 @@ class Wrapper extends StatelessWidget {
                             BlocProvider.of<UsernameDialogBloc>(context),
                       )
                     ],
-                    child: state.screens[state.currentTabIndex],
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        );
+                      },
+                      child: state.screens[state.currentTabIndex],
+                    ),
                   ),
                 ),
                 Positioned(

@@ -8,7 +8,6 @@ import 'package:briefshot/widgets/popups/AskUsername.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key});
@@ -143,21 +142,23 @@ class ProfileScreen extends StatelessWidget {
                                                       );
                                                     },
                                                     child: Container(
-                                                      height: 40,
-                                                      width: 40,
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              color:
-                                                                  Colors.white),
-                                                      child: const Icon(
-                                                        Icons
-                                                            .photo_camera_outlined,
-                                                        color:
-                                                            Color(0xFFE88954),
-                                                      ),
-                                                    ),
+                                                        padding:
+                                                            EdgeInsets.all(12),
+                                                        decoration:
+                                                            const BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          20),
+                                                                ),
+                                                                color: Colors
+                                                                    .white),
+                                                        child: SvgPicture.asset(
+                                                            'assets/icons/camera.svg',
+                                                            height: 24,
+                                                            width: 24)),
                                                   ),
                                                 );
                                               } else {
@@ -214,16 +215,22 @@ class ProfileScreen extends StatelessWidget {
                                                         child: Container(
                                                           padding:
                                                               const EdgeInsets
-                                                                  .all(3),
+                                                                  .all(5),
                                                           decoration:
                                                               const BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(
+                                                              Radius.circular(
+                                                                  10),
+                                                            ),
                                                             color: Colors.white,
                                                           ),
                                                           child:
                                                               SvgPicture.asset(
-                                                            'assets/icons/edit.svg',
+                                                            'assets/icons/edit-user.svg',
+                                                            alignment: Alignment
+                                                                .center,
                                                             height: 15,
                                                             width: 15,
                                                             color: const Color(
@@ -303,14 +310,17 @@ class ProfileScreen extends StatelessWidget {
                                   height:
                                       MediaQuery.of(context).size.height * 0.3,
                                   child: state.userInfos.favoritePlaces.isEmpty
-                                      ? Center(
-                                          child: Text(
-                                            "Vous n'avez pas de favoris"
-                                                .toUpperCase(),
-                                            style: TextStyle(
-                                              color: const Color(0xFFCFCFCF)
-                                                  .withOpacity(0.2),
-                                              fontSize: 15,
+                                      ? Container(
+                                          color: Color(0xFF090D0F),
+                                          child: Center(
+                                            child: Text(
+                                              "Vous n'avez pas de favoris"
+                                                  .toUpperCase(),
+                                              style: TextStyle(
+                                                color: const Color(0xFFCFCFCF)
+                                                    .withOpacity(0.2),
+                                                fontSize: 15,
+                                              ),
                                             ),
                                           ),
                                         )
@@ -367,14 +377,17 @@ class ProfileScreen extends StatelessWidget {
                                   height:
                                       MediaQuery.of(context).size.height * 0.3,
                                   child: state.userInfos.posts.isEmpty
-                                      ? Center(
-                                          child: Text(
-                                            "Vous n'avez pas de publications"
-                                                .toUpperCase(),
-                                            style: TextStyle(
-                                              color: const Color(0xFFCFCFCF)
-                                                  .withOpacity(0.2),
-                                              fontSize: 15,
+                                      ? Container(
+                                          color: Color(0xFF090D0F),
+                                          child: Center(
+                                            child: Text(
+                                              "Vous n'avez pas de publications"
+                                                  .toUpperCase(),
+                                              style: TextStyle(
+                                                color: const Color(0xFFCFCFCF)
+                                                    .withOpacity(0.2),
+                                                fontSize: 15,
+                                              ),
                                             ),
                                           ),
                                         )
