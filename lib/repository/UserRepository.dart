@@ -1,4 +1,4 @@
-import 'package:briefshot/firestore/collections/UsersCollection.dart';
+import 'package:briefshot/firebase/firestore/collections/UsersCollection.dart';
 import 'package:faker/faker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:briefshot/blocs/profile/profile_bloc.dart';
 import 'package:briefshot/blocs/userInfos/user_infos_bloc.dart';
+import 'package:briefshot/blocs/usernameDialog/username_dialog_bloc.dart';
 import 'package:briefshot/repository/UserInfosRepository.dart';
 import 'package:briefshot/screens/MapScreen.dart';
 import 'package:equatable/equatable.dart';
@@ -18,8 +19,9 @@ part 'navigation_state.dart';
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   final UserInfosBloc userInfosBloc;
   final ProfileBloc profileBloc;
+  final UsernameDialogBloc usernameDialogBloc;
 
-  NavigationBloc(this.userInfosBloc, this.profileBloc)
+  NavigationBloc(this.userInfosBloc, this.profileBloc, this.usernameDialogBloc)
       : super(
           NavigationState(
             currentTabIndex: 0,
@@ -32,7 +34,10 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
                 ),
                 BlocProvider.value(
                   value: profileBloc,
-                )
+                ),
+                BlocProvider.value(
+                  value: usernameDialogBloc,
+                ),
               ], child: ProfileScreen()),
               const NotificationScreen()
             ],

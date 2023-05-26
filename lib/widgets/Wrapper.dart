@@ -1,5 +1,6 @@
 import 'package:briefshot/blocs/profile/profile_bloc.dart';
 import 'package:briefshot/blocs/userInfos/user_infos_bloc.dart';
+import 'package:briefshot/blocs/usernameDialog/username_dialog_bloc.dart';
 import 'package:briefshot/repository/UserInfosRepository.dart';
 import 'package:briefshot/screens/SettingsScreen.dart';
 import 'package:briefshot/widgets/FilterButton.dart';
@@ -18,6 +19,7 @@ class Wrapper extends StatelessWidget {
       create: (context) => NavigationBloc(
         UserInfosBloc(UserInfosRepository())..add(LoadUserInfos()),
         BlocProvider.of<ProfileBloc>(context),
+        BlocProvider.of<UsernameDialogBloc>(context),
       ),
       child: BlocBuilder<NavigationBloc, NavigationState>(
         builder: (context, NavigationState state) {
@@ -113,8 +115,17 @@ class Wrapper extends StatelessWidget {
             body: Stack(
               children: [
                 SingleChildScrollView(
-                  child: BlocProvider(
-                    create: (context) => ProfileBloc(),
+                  child: MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) =>
+                            BlocProvider.of<ProfileBloc>(context),
+                      ),
+                      BlocProvider(
+                        create: (context) =>
+                            BlocProvider.of<UsernameDialogBloc>(context),
+                      )
+                    ],
                     child: state.screens[state.currentTabIndex],
                   ),
                 ),

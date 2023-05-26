@@ -1,3 +1,4 @@
+import 'package:briefshot/blocs/profile/profile_bloc.dart';
 import 'package:briefshot/blocs/tagPills/tag_pills_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,7 +18,8 @@ class TagPill extends StatefulWidget {
 class _TagPillState extends State<TagPill> {
   @override
   Widget build(BuildContext context) {
-    if (BlocProvider.of<TagPillsBloc>(context).state is TagPillsDeleteMode) {
+    if (BlocProvider.of<TagPillsBloc>(context).state is TagPillsDeleteMode ||
+        BlocProvider.of<ProfileBloc>(context).state is ProfileEditionAsked) {
       return Stack(
         children: [
           TextButton(

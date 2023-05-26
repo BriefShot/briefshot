@@ -35,4 +35,26 @@ class UserInfosRepository {
       throw e;
     }
   }
+
+  Future<void> updateCoverPicture(String coverPicture) async {
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({'cover': coverPicture});
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<void> updateProfilePicture(String profilePicture) async {
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({'avatar': profilePicture});
+    } catch (e) {
+      throw e;
+    }
+  }
 }

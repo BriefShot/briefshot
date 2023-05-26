@@ -1,4 +1,5 @@
 import 'package:briefshot/blocs/profile/profile_bloc.dart';
+import 'package:briefshot/blocs/usernameDialog/username_dialog_bloc.dart';
 import 'package:briefshot/widgets/Wrapper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +18,15 @@ Future<void> main() async {
 
   runApp(MaterialApp(
     home: FirebaseAuth.instance.currentUser != null
-        ? BlocProvider(
-            create: (context) => ProfileBloc(),
+        ? MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => ProfileBloc(),
+              ),
+              BlocProvider(
+                create: (context) => UsernameDialogBloc(),
+              ),
+            ],
             child: Wrapper(),
           )
         : AuthentificationScreen(),
