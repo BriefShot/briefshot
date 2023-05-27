@@ -47,6 +47,12 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Accéder à la galerie</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Prendre une photo</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Enregistrer une vidéo</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs access to location when open.</string>
 	<key>NSLocationAlwaysUsageDescription</key>

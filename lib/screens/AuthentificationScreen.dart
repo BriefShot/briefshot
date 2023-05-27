@@ -81,7 +81,7 @@ class AuthentificationScreen extends StatelessWidget {
           if (state is AuthenticationSignInSuccessfullyState) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const Wrapper()),
+              MaterialPageRoute(builder: (context) => Wrapper()),
             );
           }
         },

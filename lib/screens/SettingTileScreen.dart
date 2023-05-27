@@ -12,7 +12,7 @@ class SettingTileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xFF0B1012),
         toolbarHeight: 84,
         centerTitle: false,
         titleSpacing: 0,

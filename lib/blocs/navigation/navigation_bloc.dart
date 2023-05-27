@@ -1,7 +1,13 @@
 import 'package:bloc/bloc.dart';
+import 'package:briefshot/blocs/profile/profile_bloc.dart';
+import 'package:briefshot/blocs/userInfos/user_infos_bloc.dart';
+import 'package:briefshot/blocs/usernameDialog/username_dialog_bloc.dart';
+import 'package:briefshot/repository/UserInfosRepository.dart';
 import 'package:briefshot/screens/MapScreen.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../screens/MessageScreen.dart';
 import '../../screens/NotificationScreen.dart';
@@ -11,14 +17,28 @@ part 'navigation_event.dart';
 part 'navigation_state.dart';
 
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
-  NavigationBloc()
+  final UserInfosBloc userInfosBloc;
+  final ProfileBloc profileBloc;
+  final UsernameDialogBloc usernameDialogBloc;
+
+  NavigationBloc(this.userInfosBloc, this.profileBloc, this.usernameDialogBloc)
       : super(
           NavigationState(
             currentTabIndex: 0,
             screens: [
               MapScreen(),
               const MessageScreen(),
-              const ProfileScreen(),
+              MultiBlocProvider(providers: [
+                BlocProvider.value(
+                  value: userInfosBloc,
+                ),
+                BlocProvider.value(
+                  value: profileBloc,
+                ),
+                BlocProvider.value(
+                  value: usernameDialogBloc,
+                ),
+              ], child: ProfileScreen()),
               const NotificationScreen()
             ],
           ),

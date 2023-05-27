@@ -119,12 +119,13 @@ class AskPassword extends StatelessWidget {
                           vertical: 11,
                         ),
                         shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(10),
-                          top: Radius.circular(10),
-                        )),
+                          borderRadius: BorderRadius.vertical(
+                            bottom: Radius.circular(10),
+                            top: Radius.circular(10),
+                          ),
+                        ),
                       ),
-                      child: const Text('Cancel',
+                      child: const Text('Annuler',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
