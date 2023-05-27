@@ -104,6 +104,7 @@ class Wrapper extends StatelessWidget {
                     ],
                   )
                 : null,
+            extendBody: true,
             floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
             floatingActionButton: state.currentTabIndex == 0
                 ? const MediaQuery(

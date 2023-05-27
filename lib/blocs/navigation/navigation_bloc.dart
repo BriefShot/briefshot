@@ -26,7 +26,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
           NavigationState(
             currentTabIndex: 0,
             screens: [
-              const MapScreen(),
+              MapScreen(),
               const MessageScreen(),
               MultiBlocProvider(providers: [
                 BlocProvider.value(
