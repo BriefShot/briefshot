@@ -1,5 +1,5 @@
 import 'package:briefshot/services/MapService.dart';
-import 'package:briefshot/widgets/LocationRequestPopup.dart';
+import 'package:briefshot/widgets/popups/LocationRequestPopup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -49,6 +49,7 @@ class MapScreen extends StatelessWidget {
                   bottom: 130,
                   right: 40,
                   child: FloatingActionButton(
+                    heroTag: "DevicePosition",
                     onPressed: () {
                       BlocProvider.of<MapBloc>(context)
                           .add(GoToDevicePosition());

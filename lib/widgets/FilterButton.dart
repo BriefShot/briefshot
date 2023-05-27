@@ -8,6 +8,7 @@ class FilterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: FloatingActionButton(
+        heroTag: "FilterButton",
         backgroundColor: const Color(0xFFE88954),
         onPressed: () {},
         child: SvgPicture.asset("assets/icons/filter.svg"),
