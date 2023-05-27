@@ -115,29 +115,27 @@ class Wrapper extends StatelessWidget {
                 : null,
             body: Stack(
               children: [
-                SingleChildScrollView(
-                  child: MultiBlocProvider(
-                    providers: [
-                      BlocProvider(
-                        create: (context) =>
-                            BlocProvider.of<ProfileBloc>(context),
-                      ),
-                      BlocProvider(
-                        create: (context) =>
-                            BlocProvider.of<UsernameDialogBloc>(context),
-                      )
-                    ],
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: child,
-                        );
-                      },
-                      child: state.screens[state.currentTabIndex],
+                MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (context) =>
+                          BlocProvider.of<ProfileBloc>(context),
                     ),
+                    BlocProvider(
+                      create: (context) =>
+                          BlocProvider.of<UsernameDialogBloc>(context),
+                    )
+                  ],
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                      return FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      );
+                    },
+                    child: state.screens[state.currentTabIndex],
                   ),
                 ),
                 Positioned(

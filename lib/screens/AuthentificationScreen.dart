@@ -1,3 +1,5 @@
+import 'package:briefshot/blocs/profile/profile_bloc.dart';
+import 'package:briefshot/blocs/usernameDialog/username_dialog_bloc.dart';
 import 'package:briefshot/widgets/Wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,7 +83,19 @@ class AuthentificationScreen extends StatelessWidget {
           if (state is AuthenticationSignInSuccessfullyState) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => Wrapper()),
+              MaterialPageRoute(
+                builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (context) => ProfileBloc(),
+                    ),
+                    BlocProvider(
+                      create: (context) => UsernameDialogBloc(),
+                    ),
+                  ],
+                  child: Wrapper(),
+                ),
+              ),
             );
           }
         },
