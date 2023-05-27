@@ -32,7 +32,7 @@ class UserInfosRepository {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .update({'username': username});
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -43,7 +43,7 @@ class UserInfosRepository {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .update({'cover': coverPicture});
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -54,7 +54,7 @@ class UserInfosRepository {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .update({'avatar': profilePicture});
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

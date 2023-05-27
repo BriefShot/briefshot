@@ -1,11 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:briefshot/blocs/profile/profile_bloc.dart';
 import 'package:briefshot/blocs/userInfos/user_infos_bloc.dart';
 import 'package:briefshot/blocs/usernameDialog/username_dialog_bloc.dart';
-import 'package:briefshot/repository/UserInfosRepository.dart';
 import 'package:briefshot/screens/MapScreen.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,7 +35,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
                 BlocProvider.value(
                   value: usernameDialogBloc,
                 ),
-              ], child: ProfileScreen()),
+              ], child: const ProfileScreen()),
               const NotificationScreen()
             ],
           ),

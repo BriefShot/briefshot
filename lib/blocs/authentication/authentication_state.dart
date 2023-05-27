@@ -35,6 +35,7 @@ class AuthenticationSignUpSuccessfullyState extends AuthenticationState {
 }
 
 class AuthenticationSignUpFailedState extends AuthenticationState {
+  @override
   final String error;
   const AuthenticationSignUpFailedState(this.error);
 }
@@ -42,6 +43,7 @@ class AuthenticationSignUpFailedState extends AuthenticationState {
 class AuthenticationSignInSuccessfullyState extends AuthenticationState {}
 
 class AuthenticationSignInFailedState extends AuthenticationState {
+  @override
   final String error;
 
   const AuthenticationSignInFailedState(this.error);

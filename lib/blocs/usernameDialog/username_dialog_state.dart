@@ -16,6 +16,7 @@ class UsernameDialogInitial extends UsernameDialogState {
 }
 
 class UsernameDialogAppear extends UsernameDialogState {
+  @override
   late String? username;
   UsernameDialogAppear() : super(username: null);
 
@@ -24,6 +25,7 @@ class UsernameDialogAppear extends UsernameDialogState {
 }
 
 class UsernameDialogFieldUptadedValue extends UsernameDialogState {
+  @override
   final String username;
 
   UsernameDialogFieldUptadedValue(this.username) : super(username: username);
@@ -33,6 +35,7 @@ class UsernameDialogFieldUptadedValue extends UsernameDialogState {
 }
 
 class UsernameDialogSubmitted extends UsernameDialogState {
+  @override
   final String username;
 
   UsernameDialogSubmitted(this.username) : super(username: username);
@@ -42,6 +45,7 @@ class UsernameDialogSubmitted extends UsernameDialogState {
 }
 
 class UsernameDialogValueOk extends UsernameDialogState {
+  @override
   final String username;
   UsernameDialogValueOk(this.username) : super(username: username);
 
