@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ProfileScreen extends StatelessWidget {
-  ProfileScreen({Key? key});
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -146,8 +146,8 @@ class ProfileScreen extends StatelessWidget {
                                                       },
                                                       child: Container(
                                                           padding:
-                                                              EdgeInsets.all(
-                                                                  12),
+                                                              const EdgeInsets
+                                                                  .all(12),
                                                           decoration:
                                                               const BoxDecoration(
                                                                   borderRadius:
@@ -319,7 +319,7 @@ class ProfileScreen extends StatelessWidget {
                                     child: state
                                             .userInfos.favoritePlaces.isEmpty
                                         ? Container(
-                                            color: Color(0xFF090D0F),
+                                            color: const Color(0xFF090D0F),
                                             child: Center(
                                               child: Text(
                                                 "Vous n'avez pas de favoris"
@@ -387,7 +387,7 @@ class ProfileScreen extends StatelessWidget {
                                         0.3,
                                     child: state.userInfos.posts.isEmpty
                                         ? Container(
-                                            color: Color(0xFF090D0F),
+                                            color: const Color(0xFF090D0F),
                                             child: Center(
                                               child: Text(
                                                 "Vous n'avez pas de publications"

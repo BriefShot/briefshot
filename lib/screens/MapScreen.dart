@@ -52,9 +52,9 @@ class MapScreen extends StatelessWidget {
                     heroTag: "DevicePosition",
                     onPressed: () {
                       BlocProvider.of<MapBloc>(context)
-                          .add(GoToDevicePosition());
+                          .add(const GoToDevicePosition());
                     },
-                    backgroundColor: Color.fromARGB(255, 232, 137, 84),
+                    backgroundColor: const Color.fromARGB(255, 232, 137, 84),
                     child: const Icon(Icons.radio_button_checked),
                   ),
                 ),

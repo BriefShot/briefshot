@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
 
 class FirebaseStorageRepository {
-  Reference _firebaseStorage;
+  final Reference _firebaseStorage;
   Reference UserPictureRef =
       FirebaseStorage.instance.ref().child('usersPictures');
 
@@ -21,7 +21,7 @@ class FirebaseStorageRepository {
 
       UserInfosRepository().updateCoverPicture(downloadUrl);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -34,7 +34,7 @@ class FirebaseStorageRepository {
 
       UserInfosRepository().updateProfilePicture(downloadUrl);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

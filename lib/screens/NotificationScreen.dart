@@ -5,6 +5,6 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Container(child: Text("NotificationScreen")));
+    return SafeArea(child: Container(child: const Text("NotificationScreen")));
   }
 }

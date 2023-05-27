@@ -1,6 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class NewTagPill extends StatelessWidget {
@@ -17,12 +14,12 @@ class NewTagPill extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: Color(0xFFE88954),
+              color: const Color(0xFFE88954),
               width: 2.0,
             ),
           ),
           child: Material(
-            shape: CircleBorder(),
+            shape: const CircleBorder(),
             color: Colors.transparent,
             child: InkWell(
               onTap: () {},

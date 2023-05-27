@@ -9,6 +9,7 @@ class UpdateEmailState extends Equatable {
 }
 
 class UpdateEmailInitial extends UpdateEmailState {
+  @override
   final String email;
 
   const UpdateEmailInitial(this.email);

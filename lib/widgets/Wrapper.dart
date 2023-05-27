@@ -11,7 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import '../blocs/navigation/navigation_bloc.dart';
 
 class Wrapper extends StatelessWidget {
-  Wrapper({Key? key}) : super(key: key);
+  const Wrapper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

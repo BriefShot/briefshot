@@ -19,5 +19,5 @@ class ProfileUsernameUpdateAsked extends ProfileEvent {}
 
 class ProfileUpdateThrowError extends ProfileEvent {
   final String message;
-  ProfileUpdateThrowError({required this.message});
+  const ProfileUpdateThrowError({required this.message});
 }

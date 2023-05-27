@@ -93,7 +93,7 @@ class AuthentificationScreen extends StatelessWidget {
                       create: (context) => UsernameDialogBloc(),
                     ),
                   ],
-                  child: Wrapper(),
+                  child: const Wrapper(),
                 ),
               ),
             );
