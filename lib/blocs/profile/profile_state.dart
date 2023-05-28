@@ -28,6 +28,10 @@ class ProfileUsernameUpdated extends ProfileState {
   ProfileUsernameUpdated() : super(isEditionMode: true);
 }
 
+class ProfileInterestsTagUpdated extends ProfileState {
+  ProfileInterestsTagUpdated() : super(isEditionMode: true);
+}
+
 class ProfileUpdateError extends ProfileState {
   final String message;
   ProfileUpdateError({required this.message}) : super(isEditionMode: true);

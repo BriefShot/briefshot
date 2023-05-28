@@ -57,4 +57,15 @@ class UserInfosRepository {
       rethrow;
     }
   }
+
+  Future<void> addTags(List<String> tags) async {
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({'interestedInTags': FieldValue.arrayUnion(tags)});
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
