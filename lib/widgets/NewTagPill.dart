@@ -1,4 +1,7 @@
+import 'package:briefshot/blocs/profile/profile_bloc.dart';
+import 'package:briefshot/screens/InterestScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewTagPill extends StatelessWidget {
   const NewTagPill({Key? key}) : super(key: key);
@@ -22,7 +25,23 @@ class NewTagPill extends StatelessWidget {
             shape: const CircleBorder(),
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      transitionDuration: Duration(milliseconds: 200),
+                      pageBuilder: (_, __, ___) => InterestScreen(),
+                      transitionsBuilder: (_, animation, __, child) {
+                        return SlideTransition(
+                          position: Tween<Offset>(
+                            begin: Offset(1.0, 0.0),
+                            end: Offset.zero,
+                          ).animate(animation),
+                          child: child,
+                        );
+                      },
+                    ));
+              },
               borderRadius: BorderRadius.circular(100.0),
               child: Container(
                 child: const Icon(
