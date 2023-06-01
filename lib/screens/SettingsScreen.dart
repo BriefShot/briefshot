@@ -1,4 +1,5 @@
 import 'package:briefshot/blocs/settings/settings_bloc.dart';
+import 'package:briefshot/screens/AuthentificationScreen.dart';
 import 'package:briefshot/screens/SettingTileScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -200,22 +201,33 @@ class SettingsScreen extends StatelessWidget {
                         onTap: () {},
                       ),
                       ListTile(
-                        leading: SvgPicture.asset(
-                          "assets/icons/logout.svg",
-                          colorFilter: const ColorFilter.mode(
-                            Colors.white,
-                            BlendMode.srcIn,
+                          leading: SvgPicture.asset(
+                            "assets/icons/logout.svg",
+                            colorFilter: const ColorFilter.mode(
+                              Colors.white,
+                              BlendMode.srcIn,
+                            ),
                           ),
-                        ),
-                        title: const Text(
-                          "Se déconnecter",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
+                          title: const Text(
+                            "Se déconnecter",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
                           ),
-                        ),
-                        onTap: () {},
-                      ),
+                          onTap: () {
+                            BlocProvider.of<SettingsBloc>(context).add(
+                              PressOnLogoutTile(),
+                            );
+
+                            Navigator.pushReplacement<void, void>(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) =>
+                                    AuthentificationScreen(),
+                              ),
+                            );
+                          }),
                     ],
                   ).toList());
             },
