@@ -24,3 +24,17 @@ class LocationPredictionSelected extends LocationEvent {
   @override
   List<Object> get props => [prediction];
 }
+
+class LocationUpload extends LocationEvent {
+  LocationUpload(
+      {required this.placeName,
+      required this.placeImage,
+      required this.placeLocation});
+
+  final String placeName;
+  final String placeImage;
+  final Location placeLocation;
+
+  @override
+  List<Object> get props => [placeName, placeImage, placeLocation];
+}

@@ -22,7 +22,6 @@ class AutoCompleteService {
     if (result.status == 'OK' && result.results.isNotEmpty) {
       final location = result.results.first.geometry?.location;
       if (location != null) {
-        print("${location.lat} & ${location.lng}");
         return location;
       } else {
         throw Exception('No location found');

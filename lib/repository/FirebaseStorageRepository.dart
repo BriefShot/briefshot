@@ -8,6 +8,8 @@ class FirebaseStorageRepository {
   final Reference _firebaseStorage;
   Reference UserPictureRef =
       FirebaseStorage.instance.ref().child('usersPictures');
+  Reference ShotPictureRef =
+      FirebaseStorage.instance.ref().child('shotsPictures');
 
   FirebaseStorageRepository({Reference? firebaseStorage})
       : _firebaseStorage = firebaseStorage ?? FirebaseStorage.instance.ref();

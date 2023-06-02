@@ -23,12 +23,36 @@ class ShotImageChangeAsked extends ShotEvent {}
 class ShotPlaceAsked extends ShotEvent {}
 
 class ShotPlaceChangedAsked extends ShotEvent {
-  final Marker marker;
+  final Location location;
 
-  const ShotPlaceChangedAsked({required this.marker});
+  const ShotPlaceChangedAsked({required this.location});
 
   @override
-  List<Object> get props => [marker];
+  List<Object> get props => [location];
 }
 
 class ShotPlaceBackAsked extends ShotEvent {}
+
+class ShotPlaceSelected extends ShotEvent {
+  final Location location;
+
+  const ShotPlaceSelected({required this.location});
+
+  @override
+  List<Object> get props => [location];
+}
+
+class ShotPostAsked extends ShotEvent {
+  final String shotName;
+  final String shotImage;
+  final Location shotPlace;
+
+  const ShotPostAsked({
+    required this.shotName,
+    required this.shotImage,
+    required this.shotPlace,
+  });
+
+  @override
+  List<Object> get props => [shotName, shotImage, shotPlace];
+}

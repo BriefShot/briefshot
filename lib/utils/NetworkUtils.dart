@@ -10,7 +10,7 @@ class NetworkUtils {
         return response.body;
       }
     } catch (e) {
-      debugPrint(e.toString());
+      rethrow;
     }
     return null;
   }

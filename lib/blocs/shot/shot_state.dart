@@ -3,7 +3,7 @@ part of 'shot_bloc.dart';
 class ShotState extends Equatable {
   String? shotName;
   File? shotImage;
-  Marker? shotPlace;
+  Location? shotPlace;
   bool isMapDisplayed = false;
   ShotState();
 
@@ -16,7 +16,7 @@ class ShotInitial extends ShotState {}
 class ShotUpdated extends ShotState {
   String? shotName;
   File? shotImage;
-  Marker? shotPlace;
+  Location? shotPlace;
   bool isMapDisplayed;
 
   ShotUpdated(
@@ -27,4 +27,20 @@ class ShotUpdated extends ShotState {
 
   @override
   List<Object?> get props => [shotName, shotImage, shotPlace, isMapDisplayed];
+}
+
+class ShotCreated extends ShotState {
+  String? shotName;
+  File? shotImage;
+  Location? shotPlace;
+  bool isMapDisplayed = true;
+
+  ShotCreated({
+    this.shotName,
+    this.shotImage,
+    this.shotPlace,
+  });
+
+  @override
+  List<Object?> get props => [shotName, shotImage, shotPlace];
 }

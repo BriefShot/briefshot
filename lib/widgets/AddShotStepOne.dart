@@ -3,8 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AddShotStepOne extends StatelessWidget {
+class AddShotStepOne extends StatefulWidget {
   const AddShotStepOne({super.key});
+
+  @override
+  State<AddShotStepOne> createState() => _AddShotStepOneState();
+}
+
+class _AddShotStepOneState extends State<AddShotStepOne> {
+  static final GlobalKey<FormState> _shotNameFormKey = GlobalKey<FormState>();
+  static final _shotNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +28,7 @@ class AddShotStepOne extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Form(
+                  key: _shotNameFormKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -34,35 +43,42 @@ class AddShotStepOne extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                        onChanged: (value) => BlocProvider.of<ShotBloc>(context)
-                            .add(ShotNameChanged(shotName: value)),
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          hintText: "Nom du lieu",
-                          hintStyle: TextStyle(
-                            color: Color(0xFF9E9E9E),
-                            fontSize: 16,
-                          ),
-                          filled: true,
-                          fillColor: Color(0xFF1F2E34),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                      BlocBuilder<ShotBloc, ShotState>(
+                        builder: (context, state) {
+                          return TextFormField(
+                            initialValue:
+                                state.shotName != null ? state.shotName : null,
+                            style: const TextStyle(
                               color: Colors.white,
+                              fontSize: 16,
                             ),
-                          ),
-                        ),
+                            onChanged: (value) =>
+                                BlocProvider.of<ShotBloc>(context)
+                                    .add(ShotNameChanged(shotName: value)),
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: 20,
+                              ),
+                              hintText: "Nom du lieu",
+                              hintStyle: TextStyle(
+                                color: Color(0xFF9E9E9E),
+                                fontSize: 16,
+                              ),
+                              filled: true,
+                              fillColor: Color(0xFF1F2E34),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
