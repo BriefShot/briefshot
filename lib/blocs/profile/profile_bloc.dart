@@ -15,7 +15,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(ProfileInitial());
     });
     on<ProfileAvatarUpdateAsked>((event, emit) async {
-      XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      XFile? image = await ImagePicker()
+          .pickImage(source: ImageSource.gallery, requestFullMetadata: false);
 
       try {
         await FirebaseStorageRepository().uploadUserAvatarPicture(image!.path);
@@ -26,7 +27,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     });
 
     on<ProfileCoverUpdateAsked>((event, emit) async {
-      XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      XFile? image = await ImagePicker()
+          .pickImage(source: ImageSource.gallery, requestFullMetadata: false);
 
       try {
         await FirebaseStorageRepository().uploadUserCoverPicture(image!.path);
