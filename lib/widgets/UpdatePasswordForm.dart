@@ -1,6 +1,7 @@
 import 'package:briefshot/blocs/settings/settings_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:briefshot/blocs/updatePassword/update_password_bloc.dart';
+import 'package:briefshot/blocs/passwordDialog/password_dialog_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_validator/form_validator.dart';
 
@@ -15,6 +16,7 @@ class UpdatePasswordForm extends StatelessWidget {
       TextEditingController();
 
   final UpdatePasswordBloc updatePasswordBloc = UpdatePasswordBloc();
+  final PasswordDialogBloc passwordDialogBloc = PasswordDialogBloc();
 
   final _passwordValidator =
       ValidationBuilder(requiredMessage: "Le mot de passe est obligatoire")
@@ -29,6 +31,9 @@ class UpdatePasswordForm extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => updatePasswordBloc,
+          ),
+          BlocProvider(
+            create: (context) => passwordDialogBloc,
           ),
         ],
         child: MultiBlocListener(
@@ -59,93 +64,103 @@ class UpdatePasswordForm extends StatelessWidget {
                 }
               },
             ),
-          ],
-          child: Form(
-            key: _updatePasswordFormKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text("Mot de passe actuel",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    )),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextFormField(
-                  controller: _newPasswordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    fillColor: Color(0xFF292929),
-                    filled: true,
-                    border: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(width: 3, color: Colors.white),
-                        borderRadius: BorderRadius.circular(50.0)),
-                  ),
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                  validator: _passwordValidator,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                const Text("Nouveau mot de passe",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    )),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextFormField(
-                  controller: _confirmNewPasswordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    fillColor: Color(0xFF292929),
-                    filled: true,
-                    border: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(width: 3, color: Colors.white),
-                        borderRadius: BorderRadius.circular(50.0)),
-                  ),
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                  validator: (value) {
-                    if (value != _newPasswordController.text) {
-                      return "Les mots de passe ne correspondent pas";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFE88954),
-                    fixedSize: Size.fromWidth(
-                      MediaQuery.of(context).size.width,
-                    ),
-                  ),
-                  onPressed: () {
-                    if (_updatePasswordFormKey.currentState!.validate()) {
-                      BlocProvider.of<UpdatePasswordBloc>(context).add(
-                        UpdatePasswordEvent(
-                          _newPasswordController.text,
-                        ),
-                      );
-                    }
-                  },
-                  child: Text('Mettre à jour le mot de passe'),
-                ),
-              ],
+            BlocListener<PasswordDialogBloc, PasswordDialogState>(
+              listener: (context, state) {
+                if (state is PasswordDialogValueOk) {
+                  updatePasswordBloc
+                      .add(UpdatePasswordEvent(_newPasswordController.text));
+                }
+              },
             ),
+          ],
+          child: BlocBuilder<UpdatePasswordBloc, UpdatePasswordState>(
+            builder: (context, state) {
+              return Form(
+                key: _updatePasswordFormKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Nouveau mot de passe",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TextFormField(
+                      controller: _newPasswordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        fillColor: const Color(0xFF292929),
+                        filled: true,
+                        border: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(width: 3, color: Colors.white),
+                            borderRadius: BorderRadius.circular(50.0)),
+                      ),
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                      validator: _passwordValidator,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text("Confirmation du nouveau mot de passe",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        )),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TextFormField(
+                      controller: _confirmNewPasswordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        fillColor: const Color(0xFF292929),
+                        filled: true,
+                        border: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(width: 3, color: Colors.white),
+                            borderRadius: BorderRadius.circular(50.0)),
+                      ),
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                      validator: (value) {
+                        if (value != _newPasswordController.text) {
+                          return "Les mots de passe ne correspondent pas";
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFE88954),
+                        fixedSize: Size.fromWidth(
+                          MediaQuery.of(context).size.width,
+                        ),
+                      ),
+                      onPressed: () {
+                        print(_updatePasswordFormKey.currentState!.validate());
+                        if (_updatePasswordFormKey.currentState!.validate()) {
+                          BlocProvider.of<PasswordDialogBloc>(context)
+                              .add(const PasswordDialogAsked());
+                        }
+                      },
+                      child: Text('Mettre à jour le mot de passe'),
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ),
