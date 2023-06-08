@@ -1,7 +1,11 @@
 import 'package:bloc/bloc.dart';
+import 'package:briefshot/main.dart';
+import 'package:briefshot/repository/UserRepository.dart';
+import 'package:briefshot/screens/AuthentificationScreen.dart';
 import 'package:briefshot/widgets/UpdateEmailForm.dart';
 import 'package:briefshot/widgets/UpdatePasswordForm.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 part 'settings_event.dart';
@@ -26,6 +30,10 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<PressOnSubscriptionTile>((event, emit) {
       emit(const SettingsState.subscription(
           appBarTitle: 'Abonnement', widget: null));
+    });
+
+    on<PressOnLogoutTile>((event, emit) async {
+      await UserRepository().signOut();
     });
 
     on<PressOnBackToSettingButton>((event, emit) {
