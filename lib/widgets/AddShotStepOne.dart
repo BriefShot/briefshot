@@ -149,7 +149,7 @@ class _AddShotStepOneState extends State<AddShotStepOne> {
                               state.shotImage != null &&
                               (state.shotName != null &&
                                   state.shotName!.isNotEmpty)
-                          ? const Column(
+                          ? Column(
                               children: [
                                 SizedBox(
                                   height: 40,

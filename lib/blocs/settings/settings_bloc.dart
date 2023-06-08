@@ -3,6 +3,7 @@ import 'package:briefshot/main.dart';
 import 'package:briefshot/repository/UserRepository.dart';
 import 'package:briefshot/screens/AuthentificationScreen.dart';
 import 'package:briefshot/widgets/UpdateEmailForm.dart';
+import 'package:briefshot/widgets/UpdatePasswordForm.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -19,8 +20,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           SettingsState.email(appBarTitle: 'Email', widget: UpdateEmailForm()));
     });
     on<PressOnPasswordTile>((event, emit) {
-      emit(const SettingsState.password(
-          appBarTitle: 'Mot de passe', widget: null));
+      emit(SettingsState.password(
+          appBarTitle: 'Mot de passe', widget: UpdatePasswordForm()));
     });
     on<PressOnNotificationsTile>((event, emit) {
       emit(const SettingsState.notifications(

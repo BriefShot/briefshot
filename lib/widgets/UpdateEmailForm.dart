@@ -113,7 +113,7 @@ class UpdateEmailForm extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Email actuelle",
+                    const Text("Email actuel",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,

@@ -83,4 +83,12 @@ class UserRepository {
       }
     }
   }
+
+  Future<void> updatePassword(String password) async {
+    try {
+      await FirebaseAuth.instance.currentUser!.updatePassword(password);
+    } on FirebaseAuthException catch (e) {
+      throw e.code;
+    }
+  }
 }
