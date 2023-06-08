@@ -62,6 +62,7 @@ class UpdatePasswordForm extends StatelessWidget {
                   );
                   BlocProvider.of<SettingsBloc>(context)
                       .add(PressOnBackToSettingButton());
+                  Navigator.of(context).pop();
                 }
               },
             ),
@@ -160,13 +161,12 @@ class UpdatePasswordForm extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        print(_updatePasswordFormKey.currentState!.validate());
                         if (_updatePasswordFormKey.currentState!.validate()) {
                           BlocProvider.of<PasswordDialogBloc>(context)
                               .add(const PasswordDialogAsked());
                         }
                       },
-                      child: Text('Mettre à jour le mot de passe'),
+                      child: const Text('Mettre à jour le mot de passe'),
                     ),
                   ],
                 ),
