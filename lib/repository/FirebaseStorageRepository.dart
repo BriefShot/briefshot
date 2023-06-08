@@ -8,14 +8,16 @@ class FirebaseStorageRepository {
   final Reference _firebaseStorage;
   Reference UserPictureRef =
       FirebaseStorage.instance.ref().child('usersPictures');
+  Reference ShotPictureRef =
+      FirebaseStorage.instance.ref().child('shotsPictures');
 
   FirebaseStorageRepository({Reference? firebaseStorage})
       : _firebaseStorage = firebaseStorage ?? FirebaseStorage.instance.ref();
 
   Future<void> uploadUserCoverPicture(String path) async {
     try {
-      Reference referenceUploadImage = UserPictureRef.child(
-          '${FirebaseAuth.instance.currentUser!.uid}/${const Uuid().v4()}');
+      Reference referenceUploadImage =
+          UserPictureRef.child(FirebaseAuth.instance.currentUser!.uid);
       await referenceUploadImage.putFile(File(path));
       String downloadUrl = await referenceUploadImage.getDownloadURL();
 
@@ -27,8 +29,8 @@ class FirebaseStorageRepository {
 
   Future<void> uploadUserAvatarPicture(String path) async {
     try {
-      Reference referenceUploadImage = UserPictureRef.child(
-          '${FirebaseAuth.instance.currentUser!.uid}/${const Uuid().v4()}');
+      Reference referenceUploadImage =
+          UserPictureRef.child(FirebaseAuth.instance.currentUser!.uid);
       await referenceUploadImage.putFile(File(path));
       String downloadUrl = await referenceUploadImage.getDownloadURL();
 
