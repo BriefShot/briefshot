@@ -1,4 +1,5 @@
 import 'package:briefshot/blocs/settings/settings_bloc.dart';
+import 'package:briefshot/widgets/popups/AskPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:briefshot/blocs/updatePassword/update_password_bloc.dart';
 import 'package:briefshot/blocs/passwordDialog/password_dialog_bloc.dart';
@@ -65,7 +66,17 @@ class UpdatePasswordForm extends StatelessWidget {
               },
             ),
             BlocListener<PasswordDialogBloc, PasswordDialogState>(
-              listener: (context, state) {
+              listener: (context, state) async {
+                if (state is PasswordDialogAppear) {
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (context) => BlocProvider.value(
+                      value: passwordDialogBloc,
+                      child: AskPassword(),
+                    ),
+                  );
+                }
                 if (state is PasswordDialogValueOk) {
                   updatePasswordBloc
                       .add(UpdatePasswordEvent(_newPasswordController.text));
