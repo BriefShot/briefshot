@@ -19,6 +19,8 @@ class SettingsState extends Equatable {
   const SettingsState.notifications(
       {required this.appBarTitle, required this.widget});
 
+  const SettingsState.logout({required this.appBarTitle, required this.widget});
+
   @override
   List<Object?> get props => [appBarTitle, widget];
 }

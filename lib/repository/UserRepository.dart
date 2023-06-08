@@ -41,6 +41,14 @@ class UserRepository {
     }
   }
 
+  Future<void> signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } on FirebaseAuthException catch (e) {
+      throw "Une erreur est survenue, merci de réessayer ultérieurement";
+    }
+  }
+
   Future<void> relogUser(String? password) async {
     if (password != null) {
       try {
