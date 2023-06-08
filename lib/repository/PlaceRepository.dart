@@ -16,7 +16,9 @@ class PlaceRepository {
       String placeName, String placeImage, Location placeLocation) async {
     Reference uploadImageReference = FirebaseStorageRepository()
         .ShotPictureRef
-        .child(FirebaseAuth.instance.currentUser!.uid);
+        .child(FirebaseAuth.instance.currentUser!.uid +
+            '_' +
+            DateTime.now().millisecondsSinceEpoch.toString());
     await uploadImageReference.putFile(File(placeImage));
     String downloadUrl = await uploadImageReference.getDownloadURL();
 
